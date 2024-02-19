@@ -81,4 +81,3 @@ function solution(arr) {
 
 var allArr = [12, 77, 38, 41, 53, 92, 85];
 console.log(solution(allArr));
-// 강의 자료랑 똑같이 했넹
