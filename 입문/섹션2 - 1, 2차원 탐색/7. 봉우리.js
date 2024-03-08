@@ -51,7 +51,7 @@ function solution(arr){
         let nx=i+dx[k];
         let ny=j+dy[k];
         // nx, ny가 0 보다 크고 길이보다 작아야함 (맨끝에 위치한 경우)
-        // 그리고 비교데이터보다 클 경우 flag는 0
+        // 그리고 비교데이터보다 클 경우 flag는 0 + break로 더이상 비교안하고 나옴
         if(nx>=0 && nx<n && ny>=0 && ny<n && arr[nx][ny]>=arr[i][j]){
           flag=0;
           break;
