@@ -22,7 +22,7 @@ N개의 자연수가 입력되면 각 자연수의 자릿수의 합을 구하고
 
 📝 강의 자료 - 계산으로 자릿수를 구함 .. 개신기해 ㅠ
 
- function solution(n, arr){
+function solution(n, arr){
   let answer, max=Number.MIN_SAFE_INTEGER;
   // 배열 전체 탐색
   for(let x of arr){
@@ -44,7 +44,6 @@ N개의 자연수가 입력되면 각 자연수의 자릿수의 합을 구하고
   }
   return answer;
 }
-
 let arr=[128, 460, 603, 40, 521, 137, 123];
 console.log(solution(7, arr));
 */
@@ -81,9 +80,33 @@ function solution(numArr) {
     }
 
   }
-
   return result;
 }
-
 let numArr=[128, 460, 603, 40, 521, 137, 123];
 console.log(solution(numArr));
+
+// (2) reduce 활용
+function solution(arr){
+  let answer, max=Number.MIN_SAFE_INTEGER;
+  // 배열 전체 탐색
+  for (let x of arr) {
+    // ***간단?히 한 줄로 자릿수의 합 구하기
+    // 1. 하나씩 문자열 + 배열로 바꿈 (toString와 split 활용)
+    // 2. reduce를 통해 배열 각 요소를 실행.
+    // a는 누산기, b는 현재값, 0은 처음 값
+    // 즉, 맨 처음 0인 a에 b가 누적되서 반환함.
+    let sum = x.toString().split('').reduce((a, b) => a + Number(b), 0);
+    // 여기부터는 똑같음
+    if(sum>max){
+      max=sum;
+      answer=x;
+    }
+    else if(sum===max){
+      if(x>answer) answer=x;
+    }
+  }
+  return answer;
+}
+
+let arr=[128, 460, 603, 40, 521, 137, 123];
+console.log(solution(arr));
