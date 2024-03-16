@@ -30,17 +30,65 @@ M번의 수학성적이 주어지면 멘토와 멘티가 되는 짝을 만들 �
 (3, 1), (3, 2), (4, 2)와 같이 3가지 경우의 (멘토, 멘티) 짝을 만들 수 있다.
 
 
-📝 강의 자료
+📝 강의 자료 - 4중 for문으로 계산
+function solution(test){
+  let answer=0;
+  m=test.length;
+  n=test[0].length;
+  // 학생i
+  for(let i=1; i<=n; i++){
+  // 학생j
+    for(let j=1; j<=n; j++){
+      let cnt=0;
+      // 모든 시험
+      for(let k=0; k<m; k++){
+        let pi=pj=0;
+        // 각 시험
+        for(let s=0; s<n; s++){
+          // 두 학생의 index를 pi, pj에 저장
+          if(test[k][s]===i) pi=s;
+          if(test[k][s]===j) pj=s;
+        }
+        // pi의 index가 낮은 것이 등수가 높은 것
+        if(pi<pj) cnt++;
+      }
+      // m은 시험 수
+      // 즉 모든 시험의 등수가 높으면 +1
+      if(cnt===m) answer++;
+    }
+  }
+  return answer;
+}
+
+let arr=[[3, 4, 1, 2], [4, 3, 2, 1], [3, 1, 4, 2]];
+console.log(solution(arr));
 */
 
 // 
 function solution(arr) {
-  let result = [];
-
-  // 3일때 412만 확인
-  // 다음 인덱스에서 3의 인덱스가 4의 인덱스보다 크면 out
-
-  return result;
+  // 학생들만 따로 저장
+  let students = arr[0];
+  let resultCount = 0;
+  
+  // 이중 for문으로 모든 경우의 수 탐색
+  for (const studentA of students) {
+    for (const studentB of students) {
+      if (studentA === studentB) continue;
+      let flag = true;
+      // 모든 시험 탐색
+      for (const testResult of arr) {
+        // index를 통해 파악
+        if (testResult.indexOf(studentA) > testResult.indexOf(studentB)) {
+          flag = false;
+          continue;
+        }
+      }
+      if (flag) {
+        resultCount += 1;
+      }
+    }
+  }
+  return resultCount;
 }
 
 let arr=[[3, 4, 1, 2], [4, 3, 2, 1], [3, 1, 4, 2]];
