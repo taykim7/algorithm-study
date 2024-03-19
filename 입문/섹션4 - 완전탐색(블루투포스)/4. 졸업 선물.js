@@ -38,42 +38,110 @@ console.log(solution(33, [[2, 12], [8, 4], [6, 6], [6, 7]])); // 답 : 3
 
 
 📝 강의 자료
+
+// 어떤걸 할인할지 명확하지 않음 ..
+// 그러니 모두 탐색을 해야한다고 함
+// 그래서 나는 할인된 상품 1개씩 정하고 나머지를 더해서 구했다.
+// 문제풀이에서도 하나씩 다 할인하는 방법을 함.
+
+function solution(m, product){
+  let answer=0;
+  let n=product.length;
+
+  // *** 문제풀이에서는 sort를 활용!
+  product.sort((a, b)=>(a[0]+a[1])-(b[0]+b[1]));
+  // a[0]은 상품가격, a[1]은 배송비 - b[0] 상품가격, b[1]은 배송비
+  // 이러면 할인 전 총 비용 낮은 순으로 정렬된다...
+
+  // 할인 받는 상품 반복
+  for(let i=0; i<n; i++){
+    // 예산(m)에서 할인 받는 현재 상품 가격을 뺌
+    let money=m-(product[i][0]/2+product[i][1]);
+    let cnt=1;
+    
+    // 할인 받지 않는 상품 반복
+    for(let j=0; j<n; j++){
+    
+      // 할인 받는 상품과 같지 않아야함
+      // 그리고 나머지 예산보다 크면 break
+      // 아니면 예산에서 또 빼고 인원 +1 한다.
+      if(j!==i && (product[j][0]+product[j][1])>money) break;
+      if(j!==i && (product[j][0]+product[j][1])<=money){
+        money-=(product[j][0]+product[j][1]);
+        cnt++;
+      }
+    }
+    // answer와 cnt 중 더 큰걸 return
+    answer=Math.max(answer, cnt);
+  }  
+  return answer;
+}
+
+let arr=[[6, 6], [2, 2], [4, 3], [4, 5], [10, 3]];
+console.log(solution(28, arr));
 */
 
+// (1) 문제풀이랑 다르게 배열을 무슨 세개나 더 만들고 풀었다 ㅋㅋㅋㅋ
 function solution(yesan, arr) {
 
-  //할인된 값
+  // 할인 후 값 배열
   let discountArr = arr.map((element) => {
     return [element[0] / 2, element[1]];
   })
 
-  // 할인 전 합
+  // 할인 전 총합 배열
   let arrTot = arr.map((element) => {
     return element[0] + element[1];
   })
 
-  // 할인 후 합
+  // 할인 후 총합 배열
   let discountArrTot = discountArr.map((element) => {
     return element[0] + element[1];
   })
 
-  let n = arr.length; // 5
+  // 인원 수
+  let n = arr.length;
 
+  // 전체 가격
+  let tot = 0;
 
-  // 모두 더하기
-  // 12 4 7 9 13
-  // 최대는 학생 수 arr.length
-  // 다 더해보고 28 이상이 되면 arr.length -1
-  // 조합해서 더해보고 28 미만이 있으면 빠짐
-  // 없으면 arr.length -1
-  // 성립이 될 때까지
-  // 없으면 0 return
-  
-  return discountArrTot;
+  do {
+    // 할인 받는 상품 반복
+    for (let i = 0; i < n; i++) {
+
+      // 할인 받는 상품 1개 더한다.
+      tot += discountArrTot[i];
+
+      // 할인 받지 않는 상품 반복
+      for (let j = 0; j < n; j++) {
+
+        // 할인 받는 상품과 같으면 패스
+        if (i === j) {
+          continue;
+        }
+
+        // 할인 받지 않는 상품은 다 더해버린다.
+        tot += arrTot[j];
+      }
+
+      // 합계가 예산보다 같거나 작으면 인원 수를 리턴
+      if (tot <= yesan) {
+        return n;
+        // 아니면 전체 가격 초기화
+      } else tot = 0;
+    }
+    // 아직 예산에 맞는 인원을 구하지 못했으면 할인 후 값이 큰 순으로 뺀다.
+    // 할인 후 값이 제일 큰 수의 index를 구해서 각 배열에 제거
+    let deleteIndex = discountArrTot.indexOf(Math.max(...discountArrTot));
+    arrTot.splice(deleteIndex, 1);
+    discountArrTot.splice(deleteIndex, 1);
+    // 이제 배열 길이가 -1
+    n -= 1;
+    // 배열이 0이 되면 끝
+    if (n === 0) return 0;
+  } while (true);
 }
-
-// [가격, 배송비]
 let arr = [[6, 6], [2, 2], [4, 3], [4, 5], [10, 3]];
-// 예산은 28
-// 현재 예산으로 최대 몇 명 가능한지?
 console.log(solution(28, arr));
+
+// 정답은 잘 출력이 되는데 ... 맞는진 모르겠다 ㅠㅠ 존나 어렵네
