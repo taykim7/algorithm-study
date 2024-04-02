@@ -54,44 +54,62 @@
 
 
 📝 강의 자료
+괄호 문제는 대체적으로 스택 문제라고함
 
+function solution(s){
+  let answer=0;
+  let stack=[];
+  for(let i=0; i<s.length; i++){
+    if(s[i]==='(') stack.push('(');
+    else{
+      stack.pop(); 
+      if(s[i-1]==='(') answer+=stack.length;
+      else answer++;
+    }
+  }                          
+  return answer;
+}
+
+let a="()(((()())(())()))(())";
+console.log(solution(a));
 */
 
-// (1) 
+// (1) 강의자료랑 비슷하게 풀었다.
+
+// 어떻게든 스택으로 풀려고 겁나 애씀 ..
+// 두 시간만에 풀었다 ㅅㅂ
+// 레이져 부분을 다른 문자로 치환하려고도 하고 암튼 개고생하다가
+// 그림 그려서 공식? 규칙? 을 발견하고 풀었따!
+
+// 기본적으로 ( 일땐 push ) 일땐 pop
+// pop 할때 직전 문자가 ( 라면 '레이져'
+// 레이져일때는 length만큼 더해야함
+// 레이져가 아니면 그냥 +1
+
+// 처음엔 ( 일때도 +1 하고 레이져일때는 무시해야된다고 생각했는데
+// 그렇게 되면 토막난 쇠막대기의 중간부분(?)이 무시되버림
+
+// 암튼 뭐 수학적으로? 푼건 아닌 거같고 걍 노가다하면서 품
+// 실제 시험에서 이렇게 풀면 울면서 집갈듯?
 
 function solution(str) {
   let stack = [];
   let result = 0;
-
   for (let i = 0; i < str.length; i++) {
     if (str[i] === '(') {
-      if (str[i + 1] === ')') continue;
       stack.push(str[i]);
     } else {
       stack.pop();
-      result += stack.length;
+      if (str[i - 1] === '(') {
+        result += stack.length;
+      } else {
+        result += 1;
+      }
     }
-
   }
   return result;
 }
 
 let str = '()(((()())(())()))(())';
-console.log(solution(str));
-
-X((OXXOOXOX))OXO
-
-replace 
-ㅇ    ((a ㅇ ㅇ aa ㅇ a ㅇ )) a ㅇ a
-
-(를 만나면 1로 세팅
-  ㅇ을 만나면 + 1
-  ㅇ을 만나면 + 1
-  )를 만나면 종료하고 반환
-  (와)는 제거
-  
-  let str = '()(((()())(())()))(())';
-  let str = 'O(((OO)(O)O))(O)';
-  let str = 'O((XOOXXOXO))XOX';
-  let str = 'O(XXOOXXOXOX)XOX';
-  let str = 'OXXXOOXXOXOXXXOX';
+let str2 = '(((()(()()))(())()))(()())';
+console.log(solution(str2));
