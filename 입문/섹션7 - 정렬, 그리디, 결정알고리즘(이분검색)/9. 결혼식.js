@@ -41,6 +41,7 @@ function solution(times){
   }
 
   // 오는 순으로 정렬
+  // ***뒤에 구분하는 건 아스키코드로 구분
   T_line.sort((a, b)=>{
     if(a[0]===b[0]) return a[1].charCodeAt()-b[1].charCodeAt();
     else return a[0]-b[0];
@@ -75,6 +76,7 @@ function solution(arr) {
   }
 
   // 오는 순으로 정렬
+  // 그러고보니 a[1] - b[1] 는 boolean인데 어떻게 정렬되려나...
   timeArr.sort((a, b) => {
     if (a[0] === b[0]) {
       return a[1] - b[1]
