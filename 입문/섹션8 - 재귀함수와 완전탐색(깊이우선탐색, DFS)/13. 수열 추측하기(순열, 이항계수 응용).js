@@ -45,9 +45,11 @@ function solution(n, f){
 
   // ○ 재귀함수
   function DFS(L, sum){
+    console.log('L : ' + L + ' , sum : ' + sum);
     if(flag) return;
     // 4, 16이 되면 종료
     if(L===n && sum===f){
+      console.log('end');
       answer=p.slice();
       flag=1;
     }
@@ -60,6 +62,7 @@ function solution(n, f){
           ch[i]=1;
           p[L]=i;
           DFS(L+1, sum+(b[L]*p[L]));
+          console.log('복귀');
           ch[i]=0;
         }
       }
