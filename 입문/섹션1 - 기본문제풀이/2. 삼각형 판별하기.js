@@ -58,3 +58,12 @@ function solution(a, b, c) {
 console.log(solution(13, 33, 17));
 // 강의자료 참고하고 다르게 풀어봤다.
 // 세 변의 길이를 모두 더한 값 중에 가장 긴 변을 뺀 값을 비교하면 될 듯
+
+// ==================================
+
+function isTriangle(a, b, c) {
+  let tot = a + b + c;
+  let max = Math.max(a, b, c);
+  return max < tot-max ? 'YES' : 'NO';
+}
+console.log(isTriangle(6, 7, 11))

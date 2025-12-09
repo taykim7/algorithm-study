@@ -31,3 +31,10 @@ function solution(n){
 }
 console.log(solution(178));
 // 강의 자료와 똑같이 풀었다!
+
+// =================
+
+function countDas(n) {
+  return Math.ceil(n / 12)
+}
+console.log(countDas(178))

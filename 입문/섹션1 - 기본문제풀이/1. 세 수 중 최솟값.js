@@ -41,3 +41,10 @@ function solution(a, b, c){
 }
 console.log(solution(6, 5, 11)); // 5
 // 그냥 Math 함수로 완전 쉽게도 가능한 듯
+
+// ==========================
+
+function solution(a, b, c) {
+  return Math.min(a, b, c);
+}
+console.log(solution(10, 11, 29));
