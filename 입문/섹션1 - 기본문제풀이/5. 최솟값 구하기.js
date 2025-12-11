@@ -70,3 +70,18 @@ console.log(solution('5 3 7 11 2 15 17'));
 
 // 강의 자료는 Number.MAX_SAFE_INTEGER 로 큰 값으로 미리 세팅하는데 이렇게까지 해야하나 싶다 ...
 // (진짜 몰라서ㅠ)
+
+// ============================
+
+function solution(arr) {
+  let min = Number.MAX_VALUE;
+  for (const element of arr) {
+    if (element < min) {
+      min = element
+    }
+  }
+  return min;
+}
+console.log(solution([5, 7, 1, 3, 2, 9, 11]))
+
+// 아 그냥 Math.min 쓰면 됐구나!
