@@ -69,3 +69,27 @@ console.log(solution(3, arr));
 // 10으로 나누고 나머지 값으로 찾았다.
 
 // 입문 단계 + 섹션1인데 벌써 헷갈리네 ㅁㅊ ...
+
+// ================================
+
+function solution(day, arr) {
+  // let stopNum = day > 10 ? Math.floor(day * 0.1) * 10 : day;
+  let stopNum = day % 10;
+
+  let count = 0;
+  for (const element of arr) {
+    // let nowCar = element - (Math.floor(element * 0.1) * 10);
+    let nowCar = element % 10;
+    if (nowCar === stopNum) {
+      count++;
+    }
+  }
+
+  return count;
+}
+
+const arr = [25, 23, 11, 47, 53, 17, 33];
+console.log(solution(3, arr));
+
+// 아 일의 자리 수 구할 때 10으로 나눈 나머지값으로 하면 되는구나 ... 개멍청
+// 근데 문제풀이에서도 day의 일의 자리를 안구하네??
