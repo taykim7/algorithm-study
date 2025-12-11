@@ -34,3 +34,16 @@ function solution(n){
 }
 console.log(solution(10));
 // 강의 자료랑 똑같이 했넹
+
+//==============================
+
+function solution(n) {
+  let tot = 0;
+  for (var i = 0; i <= n; i++)
+  {
+    tot += i;
+  }
+  return tot;
+}
+console.log(solution(14));
+
