@@ -81,3 +81,21 @@ function solution(arr) {
 
 var allArr = [12, 77, 38, 41, 53, 92, 85];
 console.log(solution(allArr));
+
+// =====================
+
+function solution(arr) {
+  let oddTot = 0;
+  let oddMin = Number.MAX_VALUE;
+  for (const element of arr) {
+    if (element % 2 !== 0) {
+      oddTot += element;
+      if (element < oddMin) {
+        oddMin = element;
+      }
+    }
+  }
+  return `홀수 합계는 ${oddTot} / 최소 홀수는 ${oddMin}`
+}
+var allArr = [12, 77, 38, 41, 53, 92, 85];
+console.log(solution(allArr));
