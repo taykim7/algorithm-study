@@ -93,3 +93,38 @@ console.log(solution(arr));
 // 입력 예제에 따라 여러 답이 나올 수 있는데 아무거나 출력하면 되니까 아무거나 출력하면 된다.
 // 즉, 두마리를 제외한 총 합이 100일때 그냥 return해서 나오면 된다.
 // 문제 잘 읽자 ... 겁나 헷갈리게 하네 ㅠ
+
+// ================================
+
+function solution(arr) {
+  let result = [...arr];
+
+  // 합이 100 이어야함
+  let sevenTot = 100;
+  
+  // 아홉마리 총합
+  // let nineTot = 0;
+  // for (const element of arr) {
+  //   nineTot += element
+  // }
+  let nineTot = arr.reduce((acc, cur) => acc + cur, 0);
+
+  // 이중포문
+  for(let i = 0; i < arr.length - 1; i++) {
+    for(let j = i + 1; j < arr.length; j++) {
+      let twoTot = nineTot - (arr[i] + arr[j]);
+      if (sevenTot === twoTot) {
+        console.log(`i: ${i} / j: ${j}`)
+        result.splice(j, 1)
+        result.splice(i, 1)
+        return result;
+      }
+    }
+  }
+}
+
+// const arr = [20, 7, 23, 19, 10, 15, 25, 8, 13];
+const arr = [19, 10, 15, 25, 8, 13, 20, 7, 23,];
+console.log(solution(arr));
+
+// 총합 구할때 reduce 사용하면 간단!
