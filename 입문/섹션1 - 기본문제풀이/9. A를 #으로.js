@@ -58,3 +58,24 @@ function solution(str) {
 }
 var str = 'BANANA';
 console.log(solution(str));
+
+// ====================
+
+function changeAToShap(str) {
+  let arr = [...str];
+  
+  // let result = '';
+  // for (const key in arr) {
+  //   arr[key] === 'A' ? result += '#' : result += arr[key];
+  // }
+  // return result;
+
+  for (const key in arr) {
+    arr[key] === 'A' ? arr.splice(key, 1, '#') : '';
+  }
+  return arr.join('');
+}
+var str = 'BANANA';
+console.log(changeAToShap(str));
+
+// 따로 result를 안만들고 splice로 변환해도 되긴하네
