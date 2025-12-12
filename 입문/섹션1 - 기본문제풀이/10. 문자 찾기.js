@@ -45,4 +45,18 @@ function solution(str1, str2) {
 var str1 = 'COMPUTERPROGRAMMING';
 var str2 = 'R';
 console.log(solution(str1, str2));
-// 아근데 대소문자 구분은 안함. 하란 말 없었잖아 ^^
+
+// ================================
+
+function solution(target, str) {
+  let targetArr = [...target];
+  let result = targetArr.filter((el) => {
+    return el.toUpperCase() === str.toUpperCase();
+  })
+  return result.length
+}
+var str1 = 'COMPUTERPROGRAMMING';
+var str2 = 'r';
+console.log(solution(str1, str2));
+
+// 대소문자 구분 급하게 추가^^;
