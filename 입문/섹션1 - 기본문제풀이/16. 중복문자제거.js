@@ -38,3 +38,15 @@ function solution(str) {
 var str = 'ksekkset';
 console.log(solution(str));
 // 강의 자료랑 비슷하게 푼듯
+
+// ===============================
+
+function doubleCheck(str) {
+  let result = ''
+  for (const element of str) {
+    if (result.indexOf(element) < 0) result += element;
+  }
+  return result;
+}
+var str = 'ksekkset';
+console.log(doubleCheck(str));

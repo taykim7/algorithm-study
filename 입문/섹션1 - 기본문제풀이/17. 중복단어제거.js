@@ -76,3 +76,19 @@ function solution(strArr) {
 var strArr = ['good', 'time', 'good', 'time', 'student'];
 console.log(solution(strArr));
 // has() 메서드는 Set 객체에 주어진 요소가 존재하는지 여부를 판별해 반환.
+
+// ================
+
+function findWord(arr) {
+  let result = [];
+  for (const element of arr) {
+    result.includes(element) ? '' : result.push(element)
+  }
+  return result;
+}
+var strArr = ['good', 'time', 'good', 'time', 'student'];
+console.log(findWord(strArr));
+
+// 이번엔 includes 로 간단하게 풀었지만
+// 강의자료에는 filter와 indexOf로 풀음
+// 예전에 풀때는 반복문에 indexOf로 풀다가 Set 활용하는 방법 알아낸듯 + Set의 has와 add 활용
