@@ -53,3 +53,17 @@ var strArr = ['teacher', 'time', 'student', 'beautiful', 'good'];
 console.log(solution(num, strArr));
 // 처음에 주어지는 자연수 갯수 중에 고르는 문제인 줄 알았음..
 
+// ====================================
+
+function findLongest(arr) {
+  let resultIndex = 0;
+  for (const index in arr) {
+    arr[resultIndex].length < arr[index].length ? resultIndex = index : '';
+  }
+  return arr[resultIndex];
+}
+
+let str=["teacher", "time", "studdddddddddddddddddent", "beautiful", "good"];
+console.log(findLongest(str));
+
+// 아 나는 index로 풀었넹
