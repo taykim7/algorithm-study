@@ -44,3 +44,33 @@ function solution(str) {
 }
 var str = 'good';
 console.log(solution(str));
+
+// ========================
+
+function centerWords(str) {
+  let result = '';
+  let centerIndex = 0;
+
+  if (str.length % 2 === 0) {
+    // 짝수일 경우
+    result = (strArr.splice((str.length / 2) - 1, 2)).join('');
+  } else {
+    // 홀수일경우
+    result = (strArr.splice(Math.floor((str.length / 2)), 1)).join('');
+  }
+  return result
+
+}
+var str = 'gozod';
+console.log(centerWords(str));
+
+// 여기서 알게된 것
+// trunc 와 floor 의 차이점
+
+// trunc는 소숫점 이하를 단순히 버림 
+//  3.14 → 3
+//  -3.14 → -3
+
+// floor은 주어진 숫자보다 더 작은 정수를 반환함 (내림)
+//  3.14 → 3
+//  -3.14 → -4 // 음수일 경우 사용 주의하기! 
