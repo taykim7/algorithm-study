@@ -40,3 +40,11 @@ function solution(str) {
 }
 var str = 'ItisTimeToStudy';
 console.log(solution(str));
+
+// =====================
+
+function changeUpper(str) {
+  return str.toUpperCase();
+}
+var str = 'ItisTimeToStudy';
+console.log(changeUpper(str));

@@ -63,3 +63,14 @@ const str = 'KoreaTimeGood';
 console.log(solution(str));
 // 별 어려운 방법을 다쓰네 증말
 // * /[A-Z]/g는 대문자를 찾기 위한 정규 표현식
+
+// ==========================
+
+function fineUpperCase(str) {
+  let result = str.match(/[A-Z]/g)
+  return result.length
+}
+const str = 'KoreaTimeGood';
+console.log(fineUpperCase(str));
+
+// 풀이에 아스키코드로 변환하고 갯수 세는건 좀 오바아닌가?

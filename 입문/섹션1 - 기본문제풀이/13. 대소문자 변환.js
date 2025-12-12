@@ -57,3 +57,24 @@ var str = 'StuDY';
 console.log(solution(str));
 // 문자열 메서드를 사용하는게 훨씬 간단하고 직관적이라 더 나은 것 같다.
 
+// =======================
+
+function changeCase(str) {
+  let result = '';
+  for (const el of str) {
+    let strNum = el.charCodeAt();
+    if (65 <= strNum && strNum <= 90) {
+      // 대문자일 경우 소문자로 변경
+      result += el.toLowerCase();
+    } else {
+      // 소문자일 경우 대문자로 변경
+      result += el.toUpperCase();
+    }
+  }
+  return result
+}
+var str = 'StuDY';
+console.log(changeCase(str));
+
+// 강의자료에는
+// 하나씩 대문자로 변경하고 그대로이면 소문자로변경하는 방식!
