@@ -58,3 +58,22 @@ function solution(numArr) {
 }
 const numArr = [130, 135, 148, 140, 145, 150, 150, 153];
 console.log(solution(numArr));
+
+// ======================================
+
+function solution(arr) {
+  let result = [];
+  let highest = 0;
+
+  for (const element of arr) {
+    if (element > highest) {
+      highest = element;
+      result.push(element);
+    }
+  }
+
+  return result?.length || 0;
+}
+
+const arr = [130, 135, 148, 140, 145, 150, 150, 153];
+console.log(solution(arr));
