@@ -113,3 +113,30 @@ const rcpA = ['바위', '보', '보', '가위', '보'];
 const rcpB = ['가위', '가위', '바위', '바위', '보'];
 console.log(solution(rcpA, rcpB));
 // → 근데 애초에 문제가 숫자로 풀게했는데 한글로 해도 되나?
+
+// ============================
+
+function solution(a, b){  
+  let gameCount = 5;
+  let winner = [];
+
+  for (let i = 0; i < gameCount; i++) {
+    if (a[i] === b[i]) {
+      winner.push('비김');
+    } else if (a[i] === 1 && b[i] === 3) {
+      winner.push('A가 이김');
+    } else if (a[i] === 2 && b[i] === 1) {
+      winner.push('A가 이김');
+    } else if (a[i] === 3 && b[i] === 2) {
+      winner.push('A가 이김');
+    } else {
+      winner.push('B가 이김');
+    }
+  }       
+  return winner;
+}
+
+// 1:가위, 2:바위, 3:보
+let a = [2, 3, 3, 1, 3];
+let b = [1, 1, 2, 2, 3];
+console.log(solution(a, b));

@@ -63,3 +63,22 @@ function solution(correctArr) {
 var correctArr = [1, 0, 1, 1, 1, 0, 0, 1, 1, 0];
 console.log(solution(correctArr));
 // 강의 자료와 비슷하게 푼 것 같다.
+
+// ===========================
+
+function solution(arr) {
+  let comboBonus = 0;
+  let finalScore = 0;
+
+  for (const element of arr) {
+    if (element > 0) {
+      comboBonus += 1;
+      finalScore += comboBonus;
+    } else {
+      comboBonus = 0;
+    }
+  }
+  return finalScore;
+}
+var arr = [1, 0, 1, 1, 1, 0, 0, 1, 1, 0];
+console.log(solution(arr));
