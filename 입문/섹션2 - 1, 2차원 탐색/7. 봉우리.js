@@ -173,3 +173,113 @@ let arr2 = [
   [8, 7, 3, 5, 2]
 ];
 console.log(solution(arr2));
+
+// ======================
+
+function solution(arr) {
+  let result = 0;
+  let n = arr.length;
+
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+
+      let flag = true;
+      if (i > 0) {
+        // 상
+        if (arr[i][j] < arr[i-1][j]) {
+          flag = false;
+        };
+      }
+      if (j > 0) {
+        // 좌
+        if (arr[i][j] < arr[i][j-1]) {
+          flag = false;
+        };
+      }
+      if (i < n - 1) {
+        // 하
+        if (arr[i][j] < arr[i+1][j]) {
+          flag = false;
+        };
+      }
+      if (j < n - 1) {
+        // 우
+        if (arr[i][j] < arr[i][j+1]) {
+          flag = false;
+        };
+      }
+
+      if (flag) {
+        result += 1;
+      }
+      
+    }
+  }
+
+  return result;
+}
+let arr3 = [
+  [5, 3, 7, 2, 3],
+  [3, 7, 1, 6, 1],
+  [7, 2, 5, 3, 4],
+  [4, 3, 6, 4, 1],
+  [8, 7, 3, 5, 2]
+];
+console.log(solution(arr3));
+
+// ↑ 존나 정직하게 상하좌우 비교해서 풀었음
+// arr[i]하[j] 기준
+// arr[i-1][j] 상 i가 0일때 비교불가
+// arr[i][j-1] 좌 y가 0일때 비교불가
+// arr[i+1][j] 하 i가 4일때 비교불가
+// arr[i][j+1] 우 y가 4일때 비교불가
+
+function solution(arr) {
+  let result = 0;
+  let n = arr.length;
+  
+  // 방향 배열 [상, 하, 좌, 우]
+  let dx = [0, 0, -1, 1];
+  let dy = [1, -1, 0, 0];
+
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+
+      let flag = true;
+
+      // 상하좌우 비교
+      for (let index = 0; index < 4; index++) {
+        // 비교용 x, y
+        let nx = i + dx[index];
+        let ny = j + dy[index];
+
+        // 비교불가 케이스 확인 후 비교
+        if (
+          nx >= 0 && nx < n &&
+          ny >= 0 && ny < n &&
+          arr[nx][ny] > arr[i][j]
+        ) {
+          flag = false;
+          break;
+        }
+      }
+
+      if (flag) {
+        result += 1;
+      }
+      
+    }
+  }
+
+  return result;
+}
+let arr4 = [
+  [5, 3, 7, 2, 3],
+  [3, 7, 1, 6, 1],
+  [7, 2, 5, 3, 4],
+  [4, 3, 6, 4, 1],
+  [8, 7, 3, 5, 2]
+];
+console.log(solution(arr4));
+
+// ↑ 방향배열 추가하여 풀이
