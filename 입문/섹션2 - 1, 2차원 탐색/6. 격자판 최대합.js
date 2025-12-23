@@ -112,3 +112,31 @@ console.log(solution(arr));
 
 // 최대 값을 계산할 때 Math.max를 활용하는게 더 좋을 것 같다
 // Math.max(...resultRow, ...resultCol, diagonal);
+
+// =============================
+
+function solution(arr) {
+  let n = arr.length;
+  let diaSum1 = 0;
+  let diaSum2 = 0;
+
+  for (let i = 0; i < n; i++) {
+    diaSum1 += arr[i][i]
+    diaSum2 += arr[i][n - (i+1)]
+  }
+  return Math.max(diaSum1, diaSum2);
+};
+let numArr = [
+  [10, 13, 10, 12, 15],
+  [12, 39, 30, 23, 11],
+  [11, 25, 50, 53, 15],
+  [19, 27, 29, 37, 27],
+  [19, 13, 30, 13, 19]
+];
+let numArr2 = [
+  [10, 13, 10],
+  [12, 39, 30],
+  [11, 25, 50],
+];
+console.log(solution(numArr)); // 155
+console.log(solution(numArr2)); // 99
