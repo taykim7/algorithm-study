@@ -59,3 +59,54 @@ function solution(korArr) {
 }
 var korArr = [87, 89, 92, 100, 76];
 console.log(solution(korArr));
+
+// ==========================
+
+function solution(arr) {
+  let n = arr.length;
+  let rankArr = Array.from({length : n}, () => 0);
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (arr[i] <= arr[j]) {
+        rankArr[i] += 1;
+      }
+    }
+  }
+  return rankArr;
+}
+
+var korArr = [87, 89, 92, 100, 76, 76];
+console.log(solution(korArr)); // 4 3 2 1 6 6
+
+// ↑ 성능적으론 별로인듯
+
+function solution(arr) {
+  // 순위
+  let rank = 1;
+
+  // 순서대로 정렬
+  const sorted = [...arr].sort((a, b) => b - a);
+
+  // Map 객체 생성
+  const rankMap = new Map();
+
+  // 등수 구하기
+  for (let i = 0; i < sorted.length; i++) {
+    // 중복되지 않은 점수만 순위와 함께 등록
+    if (!rankMap.has(sorted[i])) {
+      rankMap.set(sorted[i], rank);
+    }
+    // 중복될 경우 순위만 +1
+    // ※ 동점 처리를 높은 점수 or 낮은 점수는 rank++ 위치에 따라 달라짐
+    rank++;
+  }
+
+  console.log(rankMap)
+
+  // 점수별로 순회하며 등수 가져오기
+  return arr.map(score => rankMap.get(score));
+}
+var korArr = [87, 89, 92, 100, 76, 76, 70];
+console.log(solution(korArr)); // 4 3 2 1 5 5 7
+
+// ↑ sort 활용
