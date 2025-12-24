@@ -47,3 +47,34 @@ function solution(str) {
 }
 let str = 'gooG';
 console.log(solution(str));
+
+// =================================
+
+function solution(str) {
+  let result = 'NO'
+  let strArr = [...str.toLowerCase()];
+  let revStrArr = [...strArr];
+  revStrArr.reverse();
+  if (JSON.stringify(strArr) === JSON.stringify(revStrArr)) result = 'YES'; 
+  return result;
+}
+let str2 = 'gooGz';
+console.log(solution(str2));
+
+// ----------------------
+
+function solution(str) {
+  let result = 'YES'
+  let strArr = [...str.toLowerCase()];
+  let strArrlength = strArr.length;
+  for (let i = 0; i < strArrlength / 2; i++) {
+    if (strArr[i] !== strArr[strArrlength - i - 1]) result = 'NO'
+  }
+  return result;
+}
+let str3 = 'gooG';
+console.log(solution(str3));
+
+// ↑ 두번째 방식이 정답에 유사한거라고 한다.
+// 첫번째 방식보다 시간복잡도, 공간복잡도에서 유리하다고함
+// 첫번째 방식은 배열 2개 생성하고 문자열 직렬화까지 수행하며 불필요한 메모리를 사용한다고 함.
