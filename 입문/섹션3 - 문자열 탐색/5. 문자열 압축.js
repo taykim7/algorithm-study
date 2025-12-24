@@ -68,3 +68,62 @@ console.log(solution(str));
 
 // 강의 자료랑 비슷하긴한데
 // 강의 자료는 뒤에 빈 문자를 붙힘
+
+// ===================================
+
+function solution(str) {
+  
+  let result = '';
+  let count = 1;
+  let cha = '';
+
+  // 마지막문자 비교를 위해 공백 추가
+  let strCopy = str + ' ';
+
+  for (const element of strCopy) {
+    if (cha === element) {
+      // 비교 문자와 같은 경우 count +1
+      count++;
+    } else {
+      result += cha;
+      // 비교 문자와 다를 경우 문자 삽입
+      if (count > 1) {
+        // count가 1보다 클 경우에만 숫자 삽입
+        result += `${count}`;
+      }
+      // 비교 문자 변경, count 초기화
+      cha = element;
+      count = 1;
+    }
+  }
+  return result;
+}
+let str2="KKHSSSSSSSEE";
+console.log(solution(str2)); // K2HS7E
+
+// -------------------------
+
+function solution(str) {
+  
+  let result = '';
+  let count = 1;
+  let cha = str[0];
+
+  for (let i = 1; i <= str.length; i++) {
+    if (str[i] === cha) {
+      count++;
+    } else {
+      result += cha;
+      if (count > 1) result += count;
+      cha = str[i];
+      count = 1;
+    }
+  }
+  return result;
+}
+let str3="KKHSSSSSSSEE";
+console.log(solution(str3)); // K2HS7E
+
+// ↑ 약간 개선
+// (1) for of가 아닌 for문으로 index 1부터 시작하여 cha를 빈 문자열로 선언하지 않아도됨.
+// (2) str 길이까지 순회하며 마지막 문자열 안붙혀도됨
