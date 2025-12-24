@@ -92,3 +92,80 @@ function solution(str, cha) {
 let str="teachermode";
 let cha="e";
 console.log(solution(str, cha));
+
+// ==========================
+
+function solution(str, cha) {
+  let result = [];
+
+  // 간격 배열
+  let interArr = [];
+  let interRevArr = [];
+
+  // 간격
+  let plus = 0;
+  let revPlus = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    // 왼쪽 → 오른쪽 비교
+    if (cha === str[i]) {
+      plus = 0;
+    } else {
+      plus++;
+    }
+    // 오른쪽 → 왼쪽 비교
+    if (cha === str[str.length - i - 1]) {
+      revPlus = 0;
+    } else {
+      revPlus++;
+    }
+    interArr.push(plus);
+    interRevArr.push(revPlus);
+  }
+
+  // 비교를 위해 순서 변경
+  interRevArr.reverse();
+
+  // 거리가 가까운쪽으로 push
+  for (let i = 0; i < str.length; i++) {
+    result.push(interArr[i] > interRevArr[i] ? interRevArr[i] : interArr[i]);
+  }
+
+  return result;
+}
+let str2="teachermode";
+let cha2="e";
+console.log(solution(str2, cha2));
+
+// -----------------
+
+function solution(str, cha) {
+  const result = [];
+  let distance = 1000;
+
+  // 왼쪽 → 오른쪽
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === cha) distance = 0;
+    else distance++;
+    result[i] = distance;
+  }
+
+  // 오른쪽 → 왼쪽
+  distance = 1000;
+  for (let i = str.length - 1; i >= 0; i--) {
+    if (str[i] === cha) distance = 0;
+    else distance++;
+    result[i] = Math.min(result[i], distance);
+  }
+
+  return result;
+}
+
+let str3="teachermode";
+let cha3="e";
+console.log(solution(str3, cha3));
+
+// ↑ 구조개선된 버전.
+// 거리 비교용 distance를 통해 배열 1개만 사용 + revers 제거
+// 왼쪽 → 오른쪽 비교한 거리를
+// 오른쪽 → 왼쪽 비교할 때 다시 비교하면서 삽입해서 for문 굳이 한번 더 안돌려도됨!
