@@ -59,3 +59,15 @@ function solution(str) {
 }
 let str="found7, time: study; Yduts; emit, 7Dnuof";
 console.log(solution(str));
+
+// ====================================
+
+function solution(str) {
+  let simpleStr = str.toLowerCase().replace(/[^a-z]/g, ''); // 알파벳 외 무시
+  for (let i = 0; i < simpleStr.length / 2; i++) {
+    if (simpleStr[i] !== simpleStr[simpleStr.length - i - 1]) return 'NO'
+  }
+  return 'YES'
+}
+let str2="found7, time: study; Yduts; emit, 7Dnuof";
+console.log(solution(str2));
