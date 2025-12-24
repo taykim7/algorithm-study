@@ -44,3 +44,26 @@ function solution(str) {
 }
 let str="g0en2T0s8eSoft";
 console.log(solution(str));
+
+// ========================
+
+function solution(str) {
+  let result = '';
+  for (const element of str) {
+    if (!isNaN(element)) result += element;
+  }
+  return Number(result);
+}
+let str2="g0en2T0s8eSoft";
+console.log(solution(str2));
+
+// -----------------------
+
+function solution(str) {
+  return Number(str.replace(/[^0-9]/g, ''));
+}
+let str3="g0en2T0s8eSoft";
+console.log(solution(str3));
+
+// ↑ 전체 문자열에서 숫자만 추출하는 방식 
+// 정규화를 활용하는게 더 안정적이다.
