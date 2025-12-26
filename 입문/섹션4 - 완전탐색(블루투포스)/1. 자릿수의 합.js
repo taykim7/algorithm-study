@@ -110,3 +110,59 @@ function solution(arr){
 
 let arr=[128, 460, 603, 40, 521, 137, 123];
 console.log(solution(arr));
+
+// ==========================
+
+function solution(arr) {
+  let answer = 0;
+  let totMax = 0;
+
+  for (const element of arr) {
+    let numString = element.toString();
+    let tot = 0;
+    for (let i = 0; i < numString.length; i++) {
+      tot += Number(numString[i]);
+    }
+    if (tot > totMax) {
+      totMax = tot
+      answer = element;
+    } else if (tot === totMax) {
+      if (answer < element) {
+        answer = element;
+      }
+    };
+  }
+  return answer;
+}
+let arr2=[128, 460, 603, 40, 521, 137, 123];
+console.log(solution(arr2));
+
+// ↑ 이 전과 거의 동일하게 풀이함 ㅋㅋ
+
+function solution(arr) {
+  let answer = 0;
+  let totMax = 0;
+
+  for (const element of arr) {
+    let num = element;
+    let tot = 0;
+    while (num) {
+      tot += (num % 10);
+      num = Math.floor(num/10);
+    }
+    if (totMax < tot) {
+      answer = element
+      totMax = tot;
+    } else if (totMax === tot) {
+      if (answer < element) {
+        answer = element;
+        // totMax = tot; // 같으니까 할 필요가 없구나
+      };
+    }
+  }
+  return answer;
+}
+let arr3=[128, 460, 603, 40, 521, 137, 123];
+console.log(solution(arr3));
+
+// ↑ 강의자료 참고하고 다시 풀기 
