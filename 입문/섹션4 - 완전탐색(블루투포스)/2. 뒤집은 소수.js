@@ -82,3 +82,78 @@ function solution(numArr) {
 
 let numArr=[32, 55, 62, 20, 250, 370, 200, 30, 100];
 console.log(solution(numArr));
+
+// =======================
+
+function solution(arr) {
+  let result = [];
+  
+  for (const element of arr) {
+    let revNum = Number(element.toString().split('').reverse().join(''));
+    let isSosu = true;
+
+    if (1 < revNum) {
+      // ↓ 2부터 뒤집은수 직전까지 다 검사함 (비효율적)
+      // for (let i = 2; i < revNum; i++) {
+      //   if (revNum % i === 0) {
+      //     isSosu = false;
+      //     break;
+      //   }
+      // }
+
+      // ↓ 소수 판별은 제곱근까지만 검사해도 충분하다
+      for (let i = 2; i < Math.sqrt(revNum); i++) {
+        if (revNum % i === 0) {
+          isSosu = false;
+          break;
+        }
+      }
+    } else {
+      isSosu = false;
+    }
+
+    if (isSosu) result.push(revNum);
+  }
+
+  return result;
+}
+let numArr2=[32, 55, 62, 20, 250, 370, 200, 30, 100];
+console.log(solution(numArr2));
+
+// ↑ 예전이랑 거의 동일하게 풀었다.
+// 개선해본다면 제곱근을 활용하는 것
+
+// ↓ 문자열로 변환 부분 제거한 버전
+// 숫자 연산만으로 사용하여 오히려 좋음
+// 소수 판별하는 로직 분리
+
+function solution(numArr) {
+  let answer=[];
+
+  for (let num of numArr) {
+    
+    let res = 0;
+    while (num) {
+      let one = num % 10;
+      res = res * 10 + one;
+      num = parseInt(num / 10); // 정수 유지 (0.3 → 0)
+    }
+    
+    // 소수인지 판별 후 push
+    if(isPrime(res)) answer.push(res);
+  }
+
+  return answer;
+}
+
+// 소수 판별 함수
+function isPrime(num){
+  if(num === 1) return false;
+  for(let i = 2; i <= parseInt(Math.sqrt(num)); i++){
+    if(num % i === 0) return false;
+  }
+  return true;
+}
+
+let numArr3=[32, 55, 62, 20, 250, 370, 200, 30, 100];
+console.log(solution(numArr3));
