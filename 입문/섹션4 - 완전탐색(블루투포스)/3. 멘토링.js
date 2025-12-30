@@ -93,3 +93,82 @@ function solution(arr) {
 
 let arr=[[3, 4, 1, 2], [4, 3, 2, 1], [3, 1, 4, 2]];
 console.log(solution(arr));
+
+// ========================
+
+function solution(rank) {
+  let result = 0;
+  let studentCount = rank[0].length;
+  let testCount = rank.length;
+
+  // 모든 학생
+  for (let i = 0; i < studentCount; i++) {
+    let mento = rank[0][i];
+    for (let j = 0; j < studentCount; j++) {
+      let menti = rank[0][j];
+      let canBeMenti = true;
+      if (mento !== menti) {
+        // 모든 시험
+        for (let test = 1; test < testCount; test++) {
+          let mentoIndex = rank[test].indexOf(mento)
+          let mentiIndex = rank[test].indexOf(menti)
+          if (mentoIndex > mentiIndex) {
+            canBeMenti = false;
+          }
+        }
+        if (canBeMenti) result++;
+      }
+    }
+  }
+  return result;
+}
+let arr2=[[3, 4, 1, 2], [4, 3, 2, 1], [3, 1, 4, 2]];
+console.log(solution(arr2));
+
+// ↑ 멘토 후보 전체 → 멘티 후보 전체 → 모든 시험에서 순위 비교하는 방법
+// indexOf 때문에 계속 다시 탐색하기 때문에 비효율적!
+
+function solution(rank) {
+  let result = 0;
+  let studentCount = rank[0].length;
+  let testCount = rank.length;
+
+  // 학생 번호 i (멘토)
+  for (let i = 1; i <= studentCount; i++) {
+    // 학생 번호 j (멘티)
+    for (let j = 1; j <= studentCount; j++) {
+      let canBeMenti = true;
+
+      if (i !== j) {
+        // 모든 시험
+        for (let test = 0; test < testCount; test++) {
+          // 멘토, 멘티 순위
+          let mentoRank = 0;
+          let mentiRank = 0;
+
+          // 각 시험마다 멘토, 멘티의 순위 찾기
+          for (let k = 0; k < studentCount; k++) {
+            if (rank[test][k] === i) {
+              mentoRank = k;
+            } else if (rank[test][k] === j) {
+              mentiRank = k;
+            }
+          }
+          if (mentoRank > mentiRank) {
+            canBeMenti = false;
+            break; // 조기종료
+          }
+        }
+        if (canBeMenti) result++;
+      }
+
+    }
+    
+  }
+  return result;
+}
+let arr3=[[3, 4, 1, 2], [4, 3, 2, 1], [3, 1, 4, 2]];
+console.log(solution(arr3));
+
+// ↑ 문제 정의대로 학생 번호 기준으로 접근
+// 멘토 후보 학생번호 전체 → 멘티 후보 학생번호 전체 → 모든 시험 → 각 시험마다 멘토멘티 순위 찾기
