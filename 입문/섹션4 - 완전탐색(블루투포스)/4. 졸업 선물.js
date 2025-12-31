@@ -145,3 +145,45 @@ let arr = [[6, 6], [2, 2], [4, 3], [4, 5], [10, 3]];
 console.log(solution(28, arr));
 
 // 정답은 잘 출력이 되는데 ... 맞는진 모르겠다 ㅠㅠ 존나 어렵네
+
+// =========================
+
+function solution(budget, arr) {
+  let answer = 0;
+  let n = arr.length;
+
+  // *** 그리디 전략을 위한 정렬
+  arr.sort((a, b)=>(a[0]+a[1])-(b[0]+b[1]));
+ 
+  for (let i = 0; i < n; i++) {
+
+    // 남은돈 = 전체돈 - 세일된돈
+    let left = budget - (arr[i][0] / 2 + arr[i][1]);
+    let totCnt = 1;
+
+    for (let j = 0; j < n; j++) {
+
+      // 같은 상품
+      if (i === j) continue;
+
+      const cost = arr[j][0] + arr[j][1];
+      
+      // 남은 금액보다 크면 안됨
+      if (cost > left) break;
+
+      left -= cost;
+      totCnt++;
+
+      answer=Math.max(answer, totCnt);
+    }
+  }
+
+  return answer
+}
+
+// console.log(solution(41, [[8, 6], [2, 2], [12, 1], [4, 5], [4, 3]])); // 5
+// console.log(solution(41, [[8, 6], [2, 2], [4, 3], [4, 5], [12, 1]])); // 5
+// console.log(solution(33, [[2, 12], [8, 4], [6, 6], [6, 7]])); // 3
+
+let arr2 = [[6, 6], [2, 2], [4, 3], [4, 5], [10, 3]];
+console.log(solution(28, arr2)); // 4
