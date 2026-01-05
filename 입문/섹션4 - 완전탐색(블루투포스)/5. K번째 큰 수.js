@@ -80,3 +80,63 @@ function solution(n, k, arr) {
 }
 let arr=[13, 15, 34, 23, 45, 65, 33, 11, 26, 42];
 console.log(solution(10, 3, arr));
+
+
+// ↓ 정렬하고 순서가 오면 더해서 return
+function solution(length, rank, arr) {
+
+  // 큰 순서대로 정렬
+  arr.sort((a, b) => b - a)
+
+  // 순위
+  let count = 0;
+
+  // 순위까지 계산
+  for (let i = 0; i < length; i++) {
+    for (let j = i + 1; j < length; j++) {
+      for (let k = j + 1; k < length; k++) {
+        count++;
+        if (rank === count) {
+          console.log(`${arr[i]} + ${arr[j]} + ${arr[k]}`)
+          return arr[i] + arr[j] + arr[k];
+        }
+      }
+    }
+  }
+}
+
+let arr2=[13, 15, 34, 23, 45, 65, 33, 11, 26, 42];
+console.log(solution(10, 3, arr2));
+
+// ↑ 조합의 생성 순서와 합의 크기 순서는 관련 없음!
+// 예를 들면 10, 9, 8, 1
+// 10, 8, 1 = 19 지만, 9, 8, 1 은 18 이다.
+// 즉, 모든 집합을 알아야한다!
+
+// 또한 구하고자 하는 것이
+// 단순 순위가 아니라 'n번째로 큰 값'이니까
+// 중복을 제거해야한다!
+
+function solution(length, rank, arr) {
+
+  // 합친 값
+  let tmp = new Set();
+
+  // 모든 경우의 수 계산
+  for (let i = 0; i < length; i++) {
+    for (let j = i + 1; j < length; j++) {
+      for (let k = j + 1; k < length; k++) {
+        // Set에 add만 해도 중복은 제외해준다.
+        tmp.add(arr[i] + arr[j] + arr[k]);
+      }
+    }
+  }
+
+  // 배열로 만들기 + 정렬
+  let tmpArr = Array.from(tmp).sort((a, b) => b - a);
+
+  return tmpArr[rank-1];
+}
+
+let arr3=[13, 15, 34, 23, 45, 65, 33, 11, 26, 42];
+console.log(solution(10, 3, arr3));
