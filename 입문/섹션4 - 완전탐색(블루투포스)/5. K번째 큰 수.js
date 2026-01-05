@@ -81,6 +81,7 @@ function solution(n, k, arr) {
 let arr=[13, 15, 34, 23, 45, 65, 33, 11, 26, 42];
 console.log(solution(10, 3, arr));
 
+// =========================
 
 // ↓ 정렬하고 순서가 오면 더해서 return
 function solution(length, rank, arr) {
@@ -116,6 +117,8 @@ console.log(solution(10, 3, arr2));
 // 또한 구하고자 하는 것이
 // 단순 순위가 아니라 'n번째로 큰 값'이니까
 // 중복을 제거해야한다!
+
+// ---------------------
 
 function solution(length, rank, arr) {
 
