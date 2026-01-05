@@ -70,3 +70,43 @@ let arr1=[1, 3, 5];
 let arr2=[2, 3, 6, 7, 9];
 console.log(solution(arr1, arr2));
 // ❌ 즉, 틀렸다는 말이란다.
+
+// =========================
+
+function solution(arr1, arr2) {
+  let arr = [];
+
+  // Two Pointers
+  let p1 = 0;
+  let p2 = 0;
+
+  // 메인 병합 루프
+  while (p1 < arr1.length && p2 < arr2.length) {
+    if (arr1[p1] < arr2[p2]) {
+      arr.push(arr1[p1++]);
+    } else {
+      arr.push(arr2[p2++]);
+    }
+  }
+
+  // 한쪽 배열이 먼저 끝났을 경우 남은 값 그대로 push
+  while (p1 < arr1.length) {
+    arr.push(arr1[p1++]);
+  }
+  while (p2 < arr2.length) {
+    arr.push(arr2[p2++]);
+  }
+
+  return arr;
+}
+
+let numArr1=[1, 3, 5];
+let numArr2=[2, 3, 6, 7, 9];
+console.log(solution(numArr1, numArr2));
+
+// 투포인터 알고리즘은 두 개의 인덱스를 앞에서부터 한 방향으로 이동시키는 방식.
+// 이중 반복문을 한번의 순회로 줄이기 위해
+// 즉, 시간복잡도 최적화 목적으로 사용한다.
+// 투포인터의 핵심 조건으로는
+// 1. 배열이 정렬되어이어야함.
+// 2. 포인터 이동 방향이 명확해야함.
