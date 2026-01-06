@@ -76,3 +76,33 @@ function solution(arr1, arr2) {
 let arr1=[1, 3, 9, 5, 2];
 let arr2=[3, 2, 5, 7, 8];
 console.log(solution(arr1, arr2));
+
+// ========================
+
+function solution(arr1, arr2) {
+  let result = [];
+  // 투포인터
+  let p1 = 0;
+  let p2 = 0;
+  // 정렬
+  arr1.sort((a, b) => a - b);
+  arr2.sort((a, b) => a - b);
+  while (p1 < arr1.length && p2 < arr2.length) {
+    if (arr1[p1] < arr2[p2]) {
+      // 우측이 크면 작은 좌측을 ++
+      p1++;
+    } else if (arr1[p1] === arr2[p2]) {
+      // 같을경우 push하고 두 포인트 모두 ++
+      result.push(arr2[p2]);
+      p1++;
+      p2++;
+    } else {
+      // 좌측이 크면 작은 우측을 ++
+      p2++;
+    }
+  }
+  return result;
+}
+let numArr1=[1, 3, 9, 5, 2];
+let numArr2=[3, 2, 5, 7, 8];
+console.log(solution(numArr1, numArr2));
