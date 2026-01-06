@@ -77,3 +77,72 @@ function solution(arr, num) {
 }
 let arr=[1, 2, 1, 3, 1, 1, 1, 2];
 console.log(solution(arr, 6));
+
+// =============================
+
+function solution(arr, m) {
+  let p1 = 0;
+  let p2 = p1 + 1;
+  let seqSum = 0;
+  let count = 0;
+
+  while (p1 < arr.length) {
+    // 연속되는 수 저장
+    seqSum += arr[p2];
+  
+    if (m === (arr[p1] + seqSum)) {
+      // 같을 경우
+      count++;
+      seqSum = 0;
+      p1++;
+      p2 = p1 + 1;
+    } else if(m > (arr[p1] + seqSum) ) {
+      // 작을 경우 다음 숫자도 추가
+      p2++;
+    } else {
+      // 클 경우 다음 기준으로 이동
+      seqSum = 0;
+      p1++;
+      p2 = p1 + 1;
+    }
+  }
+  return count;
+}
+let arr2=[1, 2, 1, 3, 1, 1, 1, 2];
+console.log(solution(arr2, 6));
+
+// ↑ 존나 틀림
+// 1. 투포인터의 핵심인 되돌아가지않는 것을 위배함. *** 이중 반복문과 다를 게 없음.
+// 2. seqSum += arr[p2]; 런타임 에러 가능성있음 (NaN)
+// 3. 단일원소 부분수열일 경우 불명확함. (arr[p1] 이 m일 경우)
+
+function solution(arr, m) {
+  let count = 0;
+  let tot = 0;
+  let lt = 0;
+
+  // rt 이동 (한쪽 방향(→)으로만 이동한다)
+  for (let rt = 0; rt < arr.length; rt++) {
+    // 연속으로 더한다
+    tot += arr[rt];
+
+    // lt 이동 (한쪽 방향(→)으로만 이동한다)
+    while (tot > m) {
+      // tot가 m보다 클 경우 arr[0] 부터 뺀다.
+      tot -= arr[lt];
+      lt++;
+    }
+
+    // tot가 m이 되었을 경우
+    if (tot === m) {
+      count++;
+    }
+  }
+  return count;
+}
+
+let arr3=[1, 2, 1, 3, 1, 1, 1, 2];
+console.log(solution(arr3, 6));
+
+// ↑ 정석적인 투포인터 알고리즘
+// 투포인터는 되돌아가지 않는다...
