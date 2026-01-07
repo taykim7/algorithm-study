@@ -73,3 +73,62 @@ function solution(arr, num) {
 
 let arr=[12, 15, 11, 20, 25, 10, 20, 19, 13, 15];
 console.log(solution(arr, 3));
+
+// ============================
+
+function solution(arr, k) {
+  let max = 0;
+  let sum = 0;
+  let lt = 0;
+  let count = 0;
+
+  for (let rt = 0; rt < arr.length; rt++) {
+    sum += arr[rt];
+    count++;
+
+    // k일 이상 더할경우 앞에서부터 뺌
+    while (count > k) {
+      sum -= arr[lt];
+      lt++;
+      count--;
+    }
+
+    // 큰 값 구하기
+    if (sum > max) {
+      max = sum;
+    }
+  }
+
+  return max;
+}
+
+let arr2 = [12, 15, 11, 20, 25, 10, 20, 19, 13, 15];
+console.log(solution(arr2, 3));
+
+// ----------------------
+
+function solution(arr, k) {
+  let max = 0;
+  let sum = 0;
+
+  // 초기 윈도우
+  for (let i = 0; i < k; i++) {
+    sum += arr[i];
+  }
+
+  max = sum;
+
+  for (let i = k; i < arr.length; i++) {
+    sum -= arr[i-k];
+    sum += arr[i];
+    if (sum > max) max = sum;
+  }
+
+  return max;
+}
+
+let arr3 = [12, 15, 11, 20, 25, 10, 20, 19, 13, 15];
+console.log(solution(arr3, 3));
+
+// 고정 슬라이딩 윈도우 : 부분 구간의 길이가 고정일때
+// 투포인터(가변 슬라이딩) : 부분 구간의 길이가 변할때
