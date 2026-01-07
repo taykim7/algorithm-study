@@ -83,3 +83,28 @@ function solution(arr, num) {
 
 let arr=[1, 3, 1, 2, 3];
 console.log(solution(arr, 5));
+
+// ===============================
+
+function solution(arr, m) {
+  let tot = 0;
+  let count = 0;
+  let lt = 0;
+
+  for (let rt = 0; rt < arr.length; rt++) {
+    tot += arr[rt];
+
+    while (tot > m) {
+      tot -= arr[lt];
+      lt++;
+    }
+    
+    // 핵심! rt까지의 부분 수열 추가 (합이 항상 m 이하가 보장되니까!)
+    count += (rt - lt + 1); 
+    
+  }
+
+  return count;
+}
+let arr2=[1, 3, 1, 2, 3];
+console.log(solution(arr2, 5));
