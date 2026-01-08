@@ -53,7 +53,7 @@ function solution(str1, str2){
 
 let a="AbaAeCe";
 let b="baeeACA";
-console.log(solution(a, b));
+console.log(solution(a, b)); // YES
 */
 
 // (1) Map에 더해주고 빼서 0이 아니면 NO를 리턴
@@ -81,3 +81,56 @@ function solution(str1, str2) {
 }
 
 console.log(solution('abaCC', 'Caaab'));
+
+// ============================
+
+function solution(a, b) {
+  if (a.length !== b.length) return 'NO';
+
+  let mapA = new Map();
+  let mapB = new Map();
+
+  for (let i = 0; i < a.length; i++) {
+    mapA.set(a[i], (mapA.get(a[i]) || 0) + 1);
+    mapB.set(b[i], (mapB.get(b[i]) || 0) + 1);
+  }
+
+  for (const [key, val] of mapA) {
+    if (mapA.get(key) !== mapB.get(key)) return 'NO';
+  }
+
+  return 'YES';
+}
+
+let a="AbaAeCe";
+let b="baeeACA";
+console.log(solution(a, b));
+
+// ↑ Map을 굳이 2개 만들어서 풀었다
+
+// ---------------------------------
+
+// ↓ 개선하여 Map을 1개만 활용해보기
+
+function solution(a, b) {
+  if (a.length !== b.length) return 'NO';
+
+  let map = new Map();
+
+  // a 대상으로 세팅
+  for (const ch of a) {
+    map.set(ch, (map.get(ch) || 0) + 1);
+  }
+
+  // b 대상으로 비교
+  for (const ch of b) {
+    if (!map.has(ch) || map.get(ch) === 0) return 'NO'; // 애초에 없거나, value가 이미 0 이면 불일치
+    map.set(ch, map.get(ch) - 1); // => value가 전부 0 이면, 일치
+  }
+
+  return 'YES'
+}
+
+let a2="AbaAeCe";
+let b2="baeeACA";
+console.log(solution(a2, b2));
