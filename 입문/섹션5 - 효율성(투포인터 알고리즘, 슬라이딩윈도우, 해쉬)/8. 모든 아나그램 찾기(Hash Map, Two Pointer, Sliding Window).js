@@ -129,3 +129,60 @@ function solution(S, T) {
 }
 
 console.log(solution('bacaAacba', 'abc'));
+
+// =================================
+
+// 두 문자열에서 아나그램이 되는 부분 문자열의 개수를 구하는 알고리즘
+
+// 아나그램인지 확인하는 메서드
+function isAnagram(map1, map2) {
+  // 사이즈 비교
+  if (map1.size !== map2.size) return false;
+  for (const [key, val] of map2) {
+    if (val !== map1.get(key)) return false;
+  }
+  return true;
+}
+
+function solution(a, b) {
+  let count = 0;
+  let tH = new Map(); // target Hash (비교기준)
+  let sH = new Map(); // source Hash
+
+  // 비교기준 세팅
+  for (let ch of b) {
+    tH.set(ch, (tH.get(ch) || 0) + 1);
+  }
+
+  // 초기 윈도우
+  for (let i = 0; i < b.length; i++) {
+    sH.set(a[i], (sH.get(a[i]) || 0) + 1);
+  }
+
+  // 초기 비교
+  if (isAnagram(sH, tH)) count++;
+
+  // 슬라이딩 윈도우 시작
+  let lt = 0;
+  for (let rt = b.length; rt < a.length; rt++) {
+    // 윈도우에 오른쪽 추가
+    sH.set(a[rt], (sH.get(a[rt]) || 0) + 1);
+    // 윈도우에 왼쪽 제거
+    sH.set(a[lt], (sH.get(a[lt]) || 0) - 1);
+    if (sH.get(a[lt]) === 0) sH.delete(a[lt]);
+    lt++;
+    
+    if (isAnagram(sH, tH)) count++;
+  }
+
+  return count;
+}
+
+let a="bacaAacba";
+let b="abc";
+
+console.log(solution(a, b));
+
+// ↑ 아나그램 비교하는 로직을 메서드로 분리.
+// 강의자료 방식은 [초기윈도우를 2개만 세팅 → 슬라이딩 윈도우를 시작하며 오른쪽 1개 추가 → 비교 → 왼쪽 1개 제거] 하는 방식
+// 나는 [초기윈도우를 3개 세팅 → 비교 → 슬라이딩 윈도우를 시작하면서 오른쪽 1개 추가, 왼쪽 1개 제거 → 비교] 하는 방식1
