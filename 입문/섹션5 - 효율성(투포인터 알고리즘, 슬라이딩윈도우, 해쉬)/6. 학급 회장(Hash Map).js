@@ -68,3 +68,30 @@ function solution(arr) {
 
 let arr=['B', 'A', 'C', 'B', 'A', 'C', 'C', 'A', 'C', 'C', 'B', 'D', 'E', 'D', 'E'];
 console.log(solution(arr));
+
+// =========================
+
+function solution(arr) {
+  let result = '';
+  let max = 0;
+  let map = new Map();
+
+  // Map 에 저장
+  for (const element of arr) {
+    map.set(element, (map.get(element) || 0) + 1)
+  }
+
+  // 하나씩 비교
+  for (const [key, value] of map) {
+    if (value > max) {
+      result = key;
+      max = value;
+    } 
+  }
+  
+  return result;
+}
+
+let str="BACBACCACCBDEDE";
+console.log(solution(str));
+
