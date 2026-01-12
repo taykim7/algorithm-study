@@ -67,3 +67,48 @@ function solution(str) {
 
 let str = '(A(BC)D)EF(G(H)(IJ)K)LM(N)'
 console.log(solution(str));
+
+// ========================
+
+
+function solution(str) {
+  let result = ''
+  let stack = []
+
+  for (const element of str) {
+    if (element === '(') {
+      stack.push(1); 
+    } else if (element === ')') {
+      stack.pop();
+    } else {
+      // 소괄호 사이에 속해있지 않을 때
+      if (0 === stack.length) result += element;
+    }
+  }
+  return result;
+}
+let str2="(A(BC)D)EF(G(H)(IJ)K)LM(N)";
+console.log(solution(str2));
+
+// ↑ 소괄호 ( ) 사이에 존재하는 모든 문자를 제거하고 남은 문자만 출력하는 알고리즘
+// 괄호의 내용이 중요한게 아니라 상태만 필요하기 때문에 push(1)로 메모리사용 최소화
+
+//-------------------------
+
+function solution(str) {
+  let stack = []
+  for (const element of str) {
+    if (element === ')') {
+      while( stack.pop() !== '(' );
+    } else {
+      stack.push(element);
+    }
+  }
+  return stack.join('');
+}
+let str3="(A(BC)D)EF(G(H)(IJ)K)LM(N)";
+console.log(solution(str3));
+
+// ↑ 강의자료 풀이.
+// 닫는 괄호가 나오면 여는 괄호가 나올대까지 다 pop 해버림
+// 남는 것들만 join 하여 출력
