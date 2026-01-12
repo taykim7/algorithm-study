@@ -64,3 +64,28 @@ function solution(str) {
 
 let str = '(()(()))(()'
 console.log(solution(str));
+
+// =============================
+
+function solution(str) {
+  let stack = []
+  for (const element of str) {
+    if ('(' === element) {
+      stack.push('(')
+    } else {
+      if (stack[stack.length - 1] === '(') {
+        stack.pop();
+      } else {
+        return 'NO';
+      }
+    }
+  }
+
+  if (0 < stack.length) return 'NO';
+  else return 'YES';
+}
+let a="(()(()))(())";
+console.log(solution(a));
+
+// ↑ 올바른 괄호이면 'YES', 올바르지 않으면 'NO'를 출력하는 알고리즘
+// 사소한 개선사항으로 굳이 '(' 기호를 삽입하지 않아도됨.
