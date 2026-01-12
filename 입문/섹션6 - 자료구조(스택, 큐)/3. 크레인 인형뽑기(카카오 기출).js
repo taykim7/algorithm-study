@@ -122,3 +122,49 @@ let board = [
 ];
 let moves = [1,5,3,5,1,2,1,4]
 console.log(solution(board, moves));
+
+// =============================
+
+function solution(boards, moves) {
+
+  let count = 0;
+
+  // 잡은 인형
+  let stack = [];
+
+  for (const move of moves) {
+    for (const board of boards) {
+      if ( 0 < board[move - 1] ) {
+
+        // 같은 인형일 경우
+        if (stack[stack.length - 1] === board[move - 1]) {
+          count += 2;
+          stack.pop();
+        } else stack.push(board[move - 1]);
+
+        // 뽑은 인형은 0으로 변경
+        board[move - 1] = 0;
+        break;
+      }
+    }
+  }
+
+  return count;
+}
+let board2 = [
+  [0, 0, 0, 0, 0],
+  [0, 0, 1, 0, 3],
+  [0, 2, 5, 0, 1],
+  [4, 2, 4, 4, 2],
+  [3, 5, 1, 3, 1]
+];
+let moves2 = [1, 5, 3, 5, 1, 2, 1, 4];
+console.log(solution(board2, moves2));
+
+// ↑ 크레인 인형뽑기, 각 격자에 있는 인형을 위에서부터 뽑으면 바구니에 쌓이는데
+// 같은 인형을 연속해서 쌓으면 두 인형은 터져서 사라짐.
+// 순서대로 집어올려서 바구니에 남는 인형을 구하는 알고리즘
+// move 순회 중 해당 위치의 board가 0이 아닐 경우
+// stack에 마지막으로 쌓인 인형인지 판별하고
+// 같으면 count +2랑 pop, 다르면 stack에 push
+// 뽑은 인형은 0 으로 변경 하여 풀었음
