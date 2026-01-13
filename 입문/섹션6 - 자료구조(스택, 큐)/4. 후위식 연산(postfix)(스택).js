@@ -78,3 +78,27 @@ function solution(str) {
 
 let str = '352+*9-';
 console.log(solution(str));
+
+// =======================
+
+function solution(str) {
+  let stack = [];
+  for (let i = 0; i < str.length; i++) {
+    if (!isNaN(str[i])) {
+      stack.push(Number(str[i]))
+    } else {
+      let rt = stack.pop();
+      let lt = stack.pop();
+      if (str[i] === '+') stack.push(lt + rt);
+      else if (str[i] === '-') stack.push(lt - rt);
+      else if (str[i] === '*') stack.push(lt * rt);
+      else if (str[i] === '/') stack.push(lt / rt);
+    }
+  }
+  return stack[0]
+}
+let str2="352+*9-";
+console.log(solution(str2));
+
+// ↑ 후위연산식이 주어지면 연산한 결과를 출력하는 알고리즘
+// pop을 잘 활용하자... rt와 lt는 계산의 순서!
