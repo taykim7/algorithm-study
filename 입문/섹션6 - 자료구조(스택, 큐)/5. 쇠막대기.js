@@ -112,4 +112,34 @@ function solution(str) {
 
 let str = '()(((()())(())()))(())';
 let str2 = '(((()(()()))(())()))(()())';
-console.log(solution(str2));
+console.log(solution(str));
+
+// ======================================
+
+function solution(str) {
+  let count = 0;
+  let stack = [];
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === '(') {
+      stack.push(1);
+    } else {
+      stack.pop();
+      if (str[i - 1] === '(') {
+        // 레이져
+        count += stack.length
+      } else {
+        count++;
+      }
+    }
+  }
+  return count;
+}
+let a="(((()(()()))(())()))(()())";
+console.log(solution(a)); // 24
+
+// 쇠막대기 레이져 절단 알고리즘
+// '()' 는 레이져를 의미.
+// 여는 괄호 '(' 일 경우에 stack 에 push
+// 닫는 괄호 ')' 일 경우엔 stack 에 pop하고
+// 직전이 여는 괄호일 경우에 stack 길이만큼 count
+// 아닐 경우에는 count +1 
