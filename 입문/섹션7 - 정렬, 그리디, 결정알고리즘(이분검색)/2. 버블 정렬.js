@@ -50,3 +50,40 @@ function solution(arr) {
 }
 let arr = [13, 5, 11, 7, 23, 15];
 console.log(solution(arr));
+
+// ================================
+
+function solution(arr) {
+  for (let i = 0; i < arr.length - 1; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] > arr[j]) {
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      };
+    }
+  }
+  return arr;
+}
+let arr2=[13, 5, 11, 7, 23, 15];
+console.log(solution(arr2));
+
+// ↑ 이것도 교환 정렬이라고함..;
+
+function solution(arr) {
+  for (let i = 0; i < arr.length - 1; i++) {
+    // 불필요한 비교 제거 (i는 확정된 개수)
+    for (let j = 0; j < arr.length - 1 - i; j++) {
+      if(arr[j]>arr[j+1]){
+        // 큰 값이 뒤로 (버블)
+        [arr[j], arr[j+1]]=[arr[j+1], arr[j]];
+      }
+    }
+  }
+  return arr;
+}
+let arr3=[13, 5, 11, 7, 23, 15];
+console.log(solution(arr3));
+
+// 한번의 패스가 끝나면 가장 큰 값이 뒤로 감 (떠오르듯이.. 버블)
+// i 는 뒤에서부터 확정된 개수
+// 버블 정렬은 인접한 원소끼리 비교한다.
+// j 와 j + 1 을 비교
