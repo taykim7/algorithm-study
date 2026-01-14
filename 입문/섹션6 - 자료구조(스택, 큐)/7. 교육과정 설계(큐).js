@@ -75,3 +75,19 @@ function solution(must, plan) {
 }
 
 console.log(solution('CBA', 'CBDAGE'));
+
+// ===========================
+
+function solution(need, plan) {
+  let queue = [...need];
+  for (const item of plan) {
+    // 필수과목인지 확인하고 맞으면 제거
+    if (item === needArr[0]) queue.shift();
+  }
+  if (queue.length === 0) return 'YES'
+  else return 'NO'
+};
+console.log(solution('CAB', 'CBDAGE'));
+
+// ↑ 필수과목(need)을 무조건 순서대로 이수해야하는데 수강과목(plan)이 잘된거면 YES 아니면 NO로 출력하는 알고리즘
+
