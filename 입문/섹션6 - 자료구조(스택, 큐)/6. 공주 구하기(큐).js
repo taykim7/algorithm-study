@@ -73,4 +73,22 @@ function solution(num1, num2) {
   return que[0];
 }
 console.log(solution(8, 3));
-  
+
+// =======================
+
+function solution(n, k) {
+  let nArr = Array.from({length: n}, (v, i) => i + 1)
+  // 1개 남을때까지 반복
+  while (nArr.length > 1) {
+    for (let i = 1; i <= k; i++) {
+      // 첫번째 요소 k번째가 아닐때 push
+      let tmp = nArr.shift();
+      if (i !== k) nArr.push(tmp);
+    }
+  }
+  return nArr[0];
+}
+console.log(solution(8, 3));
+
+// ↑ n개의 요소를 원형으로 차례대로 k번째가 됐을때 제거하여 마지막에 남은 요소를 구하는 알고리즘
+// 첫번째를 shift하고 다시 push, k번째에는 push를 안하는 방식으로 진행하여 구했다.
