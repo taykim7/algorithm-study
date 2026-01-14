@@ -65,3 +65,41 @@ function solution(arr) {
 }
 let arr2 = [13, 5, 11, 7, 23, 15];
 console.log(solution(arr2));
+
+// =================================
+
+function solution(arr) {
+  let soltArr = [...arr];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (soltArr[i] > soltArr[j]) {
+        let tmp = soltArr[i];
+        soltArr[i] = soltArr[j];
+        soltArr[j] = tmp;
+      }
+    }
+  }
+  return soltArr.join(' ')
+};
+let arr3 = [13, 5, 11, 7, 23, 15];
+console.log(solution(arr3));
+
+// ↑ 교환 정렬에 가깝다고 한다.
+// 선택 정렬 : 현재 위치에 들어갈 값을 전체에서*** 직접 골라서(selection) 한 번에 교환하는 정렬
+
+function solution(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let index = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] > arr[j]) index = j;
+    }
+    // 구조분해
+    [arr[i], arr[index]] = [arr[index], arr[i]];
+  }
+  return arr;
+}
+let arr4 = [13, 5, 11, 7, 23, 15];
+console.log(solution(arr4));
+// 가장 작은 값을 탐색하고 첫번째랑 교환, 남은 부분에서 또 작은 값을 탐색하고 교환 반복하는 방식. 
+
+
