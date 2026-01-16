@@ -67,3 +67,43 @@ function solution(arr) {
 }
 let arr = [1, 2, 3, -3, -2, 5, 6, -6];
 console.log(solution(arr));
+
+// =====================
+
+function solution(arr) {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (0 > arr[i]) result.push(arr[i])
+  }
+  for (let i = 0; i < arr.length; i++) {
+    if (0 < arr[i]) result.push(arr[i])
+  }
+  return result;
+}
+let arr2 = [1, 2, 3, -3, -2, 5, 6, -6];
+console.log(solution(arr2));
+
+// ↑ 단순히 반복문을 두번 돌려서 음의 정수 -> 양의 정수 뽑아내는 방식
+// 시간복잡도 O(n)
+
+// -----------------------
+
+function solution(arr) {
+  for (let i = 0; i < arr.length - 1; i++) {
+    for (let j = 0; j < arr.length - 1 - i; j++) {
+      if(0 < arr[j] && 0 > arr[j + 1]){
+        [arr[j], arr[j + 1]]=[arr[j + 1], arr[j]];
+      }
+    }
+  }
+  return arr;
+}
+let arr3 = [1, 2, 3, -3, -2, 5, 6, -6];
+console.log(solution(arr3));
+
+// ↑ 버블 정렬 기반으로 좌측(j)에 있는 수는 정수고, 우측(j+1)에 있는 수가 음수일 경우 서로 바꿈 
+// 시간복잡도 O(n²)
+// gpt 평으론 구현이 과도하다고 함
+
+// 음의 정수는 앞쪽에, 양의 정수는 뒷쪽에 정렬하는 알고리즘 (양의 정수와 음의 정수의 순서에는 변함이 없어야함)
+
