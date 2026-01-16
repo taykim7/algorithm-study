@@ -78,3 +78,36 @@ function solution(arr) {
 }
 let arr = [11, 7, 5, 6, 10, 9];
 console.log(solution(arr));
+
+// =========================
+
+function solution(arr) {
+  let result = [arr[0]];
+
+  for (let i = 1; i < arr.length; i++) {
+    let flag = false;
+
+    for (let j = 0; j < result.length; j++) {
+      // 해당 위치에 추가
+      if (arr[i] < result[j]) {
+        result.splice(j, 0, arr[i]);
+        flag = true;
+        break;
+      }
+    }
+    // 끝까지 못 넣었으면 맨 뒤에 추가
+    if (!flag) result.push(arr[i])
+  }
+
+  return result;
+}
+let arr2 = [11, 7, 5, 6, 10, 9];
+console.log(solution(arr2));
+
+// ↑ 삽입할 위치를 찾고 그 자리에 삽입하는 방식, 위치를 못찾았을 경우 맨 뒤에 삽입.
+
+// 삽입정렬의 특징
+// 1. 두 번째 원소부터 시작 (첫 번째는 이미 정렬되어 있음)
+// 2. 현재 값을 정렬된 배열과 비교
+// 3. 들어갈 자리에 삽입
+// 그닥 효율적이진 않지만 데이터 개수가 적거나 이미 거의 정렬된 상태일 때 사용한다.
