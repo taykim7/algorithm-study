@@ -96,7 +96,7 @@ function solution(arr) {
       }
     }
     // 끝까지 못 넣었으면 맨 뒤에 추가
-    if (!flag) result.push(arr[i])
+    if (!flag) result.push(arr[i]);
   }
 
   return result;
@@ -105,6 +105,22 @@ let arr2 = [11, 7, 5, 6, 10, 9];
 console.log(solution(arr2));
 
 // ↑ 삽입할 위치를 찾고 그 자리에 삽입하는 방식, 위치를 못찾았을 경우 맨 뒤에 삽입.
+// ↑ 정석은 아님. 보조 배열을 사용하는 삽입 정렬
+// ↓ 정석의 삽입 정렬.
+
+function solution(arr){
+  for(let i = 1; i<arr.length; i++){
+    let tmp = arr[i], j;
+    for(j = i - 1; j >= 0; j--){
+      if(arr[j] > tmp) arr[j+1]=arr[j];
+      else break;
+    }
+    arr[j+1]=tmp;
+  } 
+  return arr;
+}
+let arr3=[11, 7, 5, 6, 10, 15, 9];
+console.log(solution(arr3));
 
 // 삽입정렬의 특징
 // 1. 두 번째 원소부터 시작 (첫 번째는 이미 정렬되어 있음)
