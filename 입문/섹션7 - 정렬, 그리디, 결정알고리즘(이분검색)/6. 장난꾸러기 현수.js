@@ -90,3 +90,77 @@ function solution(arr) {
 let arr = [120, 125, 152, 130, 135, 135, 143, 127, 160];
 let arr2 = [120, 130, 150, 150, 130, 150];
 console.log(solution(arr));
+
+// ===============================
+
+// 오름차순 배열에서 바뀐 순서를 찾는 알고리즘
+
+function solution(arr) {
+  let result = [];
+
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i] > arr[i + 1]) {
+      result.push(i);
+    }
+  }
+
+  return result;
+}
+
+let arr3=[120, 125, 152, 130, 135, 135, 143, 127, 160];
+console.log(solution(arr3)); // 2, 6 (틀림)
+
+// ↑ 순서가 깨진 시점에서 i 를 넣는 근거가 없음. (index 기준임 0 이면 1번째사람)
+// 뒤에는 i + 1 을 넣어야함.
+
+function solution(arr) {
+  let left = -1;
+  let right = -1;
+
+  // 점점 커져야 맞음.
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i] > arr[i + 1]) {
+      // 다음 순번이 더 작을 경우
+      console.log(arr[i])
+      left = i;
+      break;
+    }
+  }
+
+  // 점점 작아져야 맞음.
+  for (let i = arr.length - 1; i > 0; i--) {
+    if (arr[i - 1] > arr[i]) {
+      // 이전 순번이 더 클 경우
+      right = i;
+      break;
+    }
+  }
+
+  return `${left}, ${right}`;
+}
+
+let arr4 = [120, 125, 152, 130, 135, 135, 143, 127, 160]; // 2, 7
+console.log(solution(arr4)); 
+
+// ↑ 아래 케이스일 경우에는 틀림.
+// [120, 130, 150, 150, 130, 150] → 3, 4로 나오는데 3과 4를 교환해도 정렬이 맞지 않음.
+// 2, 4가 맞음
+
+// 즉, 단순히 순서가 깨진 시점을 찾아야할 것이 아니라
+// 차라리 정렬을 새로하고 서로 비교해서 다른걸 찾는게 더 정확함!
+
+function solution(arr) {
+  let result = [];
+  let sortArr = [...arr].sort((a, b) => a - b);
+
+  for (let i = 0; i < sortArr.length; i++) {
+    if (sortArr[i] !== arr[i]) result.push(i)
+  }
+
+  return result;
+}
+
+let arr5 = [120, 130, 150, 150, 130, 150]; // 2, 4 로 잘 나옴
+console.log(solution(arr5));
+
+// ↑ 배열 복사해서 정렬하고 서로 비교하는 존나 심플한 방식.
