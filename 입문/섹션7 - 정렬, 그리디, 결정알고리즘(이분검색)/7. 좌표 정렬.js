@@ -69,3 +69,24 @@ function solution(arr) {
 
 let arr = [[2, 7], [1, 3], [1, 2], [2, 5], [3, 6]];
 console.log(solution(arr));
+
+// ===========================
+
+// n 개의 평면상의 좌표를 정렬. x → y 순
+
+function solution(arr) {
+  let sortArr = [...arr];
+  sortArr.sort((a, b) => {
+    if (a[0] === b[0]) {
+      return a[1] - b[1];
+    } else {
+      return a[0] - b[0];
+    }
+  });
+
+  return sortArr;
+}
+let arr2=[[2, 7], [1, 3], [1, 2], [2, 5], [3, 6]];
+console.log(solution(arr2));
+
+// ↑ sort 로 풀기
