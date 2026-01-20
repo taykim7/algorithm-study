@@ -22,7 +22,7 @@ Cache miss가 되고 모든 작업이 뒤로 밀리고 5번작업은 캐시의 �
 
 2) Cache Hit : 해야할 작업이 캐시에 있는 상태로
 위 상태에서 만약 3번 작업을 CPU가 사용한다면 Cache Hit가 되고,
-63번 앞에 있는 5, 2번 작업은 한 칸 뒤로 밀리고, 3번이 맨 앞으로 위치하게 된다. 
+3번 앞에 있는 5, 2번 작업은 한 칸 뒤로 밀리고, 3번이 맨 앞으로 위치하게 된다. 
 5 2 3 1 6 ---> 3 5 2 1 6
 
 캐시의 크기가 주어지고, 캐시가 비어있는 상태에서 N개의 작업을 CPU가 차례로 처리한다면 
@@ -126,7 +126,6 @@ console.log(solution(5, arr));
 // (1) 삽입정렬로 안풀고 그냥 삭제하고 추가하는 식으로 풀었다 ... 
 function solution(arr) {
   let cache = [0, 0, 0, 0, 0];
-
   for (let item of arr) {
     if (0 <= cache.indexOf(item)) {
       // 작업이 존재하는 경우
@@ -142,3 +141,44 @@ function solution(arr) {
 }
 let arr = [1, 2, 3, 2, 6, 2, 3, 5, 7];
 console.log(solution(arr));
+
+// ================================
+
+function solution(size, arr) {
+  let cache = Array.from({length: size}, () => 0);
+
+  // arr 요소 하나씩 확인
+  for(let i = 0; i < arr.length; i++){
+    let index = -1;
+
+    // 현재 캐시에 있는지 확인
+    for(let j = 0; j < cache.length; j++) {
+      if (arr[i] === cache[j]) {
+        index = j
+        break
+      }
+    }
+
+    if (index < 0) {
+      // 현재 캐시에 없을 경우 끝까지 하나씩 뒤로 밀기
+      for (let k = size - 1; k > 0; k--) {
+        cache[k] = cache[k-1];
+      }
+    } else {
+      // 현재 캐시에 있을 경우 index 까지 하나씩 뒤로 밀기
+      for (let k = index; k > 0; k--) {
+        cache[k] = cache[k-1];
+      }
+    }
+    cache[0] = arr[i];
+  }
+  return cache;
+}
+let arr2=[1, 2, 3, 2, 6, 2, 3, 5, 7];
+console.log(solution(5, arr2));
+
+// ↑ shift(밀기)를 활용한 LRU (Least Recently Used) 캐시 알고리즘.
+// 요소 하나하나 확인하면서 캐시에 있을 경우에 index를 저장.
+// 캐시에 없을 경우 캐시 모두 뒤로 당김
+// 캐시에 있을 경우 해당 index 까지만 뒤로 당김
+// 가장 첫번째에 해당 요소 삽입.
