@@ -108,3 +108,71 @@ function solution(arr) {
 let arr = [[1, 4], [2, 3], [3, 5], [4, 6], [5, 7]];
 let arr2 = [[3, 3], [1, 3], [2, 3]];
 console.log(solution(arr));
+
+// ===============================
+
+// 회의실 배정 알고리즘 (그리디 알고리즘)
+
+function solution(arr) {
+  // 시작순
+  let sortArr = [...arr].sort((a, b) => { return a[0] - b[0] });
+  let maxCount = 0;
+
+  // 전체순회
+  for (let i = 0; i < sortArr.length; i++) {
+    let endTime = sortArr[i][1];
+    let count = 1;
+
+    // 다음회의부터 전체순회
+    for (let j = i + 1; j < sortArr.length; j++) {
+      // 다음회의의 시작시간이 끝나는 시간보다 같거나 클때 카운트
+      if (endTime <= sortArr[j][0]) {
+        endTime = sortArr[j][1];
+        count++;
+      }
+    }
+
+    // 가장 큰 카운트
+    if (maxCount < count) maxCount = count;
+  }
+
+  return maxCount;
+}
+let arr3 = [[1, 4], [2, 3], [3, 5], [4, 6], [5, 7]];
+let arr4 = [[3, 3], [1, 3], [2, 3]];
+console.log(solution(arr3));
+
+// ↑ 결론은 틀림.
+// 시작 시간이 아니라 끝나는 시간 기준으로 정렬을 해야함.
+// 왜냐면 빨리 끝날수록 다음 회의를 선택할 여지가 커지기 때문 (그리디)
+
+// ------------------------------------
+
+function solution(arr) {
+  // 종료순
+  let sortArr = [...arr].sort((a, b) => {
+    if (a[1] === b[1]) {
+      return a[0] - b[0]
+    } else {
+      return a[1] - b[1]
+    }
+  });
+
+  let count = 0;
+  let endTime = 0;
+
+  // 전체순회
+  for (const [start, end] of sortArr) {
+    if (start >= endTime) {
+      endTime = end;
+      count++;
+    }
+  }
+
+  return count;
+}
+let arr5 = [[1, 4], [2, 3], [3, 5], [4, 6], [5, 7]];
+let arr6 = [[3, 3], [1, 3], [2, 3]];
+console.log(solution(arr5));
+
+// ↑ 한번 순회만으로도 할 수 있구나 ..
