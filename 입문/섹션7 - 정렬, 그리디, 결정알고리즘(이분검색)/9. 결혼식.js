@@ -59,7 +59,7 @@ function solution(times){
 }
 
 let arr=[[14, 18], [12, 15], [15, 20], [20, 30], [5, 14]];
-console.log(solution(arr));
+console.log(solution(arr)); // 2
 */
 
 // (1) 강의자료와 비슷하게 풀었따. 다른건 나는 boolean으로 올때갈때를 구분한 것.
@@ -97,3 +97,42 @@ function solution(arr) {
 
 let arr = [[14, 18], [12, 15], [15, 20], [20, 30], [5, 14]];
 console.log(solution(arr));
+
+// ========================================
+
+// 동시에 존재하는 최대 인원 구하는 알고리즘
+
+function solution(arr) {
+  const ENTER = 1;
+  const LEAVE = -1;
+  let timeLine = [];
+  let countMax = 0;
+  let count = 0;
+  
+  // 타임라인 만들기 들어올땐 +1, 나갈땐 -1
+  for (const [start, end] of arr) {
+    timeLine.push([start, ENTER]);
+    timeLine.push([end, LEAVE]);
+  }
+
+  // 정렬 (시간기준 오름차순, 들어오는 사람 먼저)
+  timeLine.sort((a, b) => {
+    if (a[0] === b[0]) {
+      return b[1] - a[1];
+    } else return a[0] - b[0];
+  });
+
+  // 타임라인상 계산 + 가장 카운트가 많은 값 가져오기
+  for (let i = 0; i < timeLine.length; i++) {
+    count += timeLine[i][1];
+    countMax = Math.max(countMax, count);
+  }
+
+  return countMax;
+};
+
+// [들어오는 시간, 나가는 시간]
+let arr2 = [[14, 18], [12, 15], [15, 20], [20, 30], [5, 14]];
+console.log(solution(arr2));
+
+// ↑ 타임라인 배열을 만들어서 계산하였다.
