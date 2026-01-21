@@ -87,3 +87,51 @@ function solution(arr, target) {
 
 let arr = [23, 87, 65, 12, 57, 32, 99, 81];
 console.log(solution(arr, 32));
+
+// =====================================
+
+// 이분검색 알고리즘
+
+function solution(arr, target) {
+
+  // 1. 정렬
+  // 복사 후 정렬이 더 안전
+  const sorted = [...arr].sort((a, b) => { return a - b });
+
+  // 2. left, right 설정
+  let left = 0;
+  let right = sorted.length - 1;
+
+  // 3. 순회
+  while (left <= right) {
+    // 4. mid를 찾기
+    let mid = Math.floor((left + right) / 2);
+    // 5. target에 따라 left나 right 변경
+    if (sorted[mid] === target) {
+       return mid + 1;
+    } else if(sorted[mid] > target) {
+      right = mid - 1;
+    } else {
+      left = mid + 1;
+    }
+  }
+
+  return '없습니다.';
+}
+let arr2 = [23, 87, 65, 12, 57, 32, 99, 81];
+console.log(solution(arr2, 32));
+
+// 간단하게 말하면
+
+// left: 배열의 첫 인덱스
+// right: 배열의 마지막 인덱스
+// mid: 배열의 중간 인덱스
+
+// 순회하면서 mid를 찾고
+// 중간 인덱스의 요소보다 작으면 right를 중간 인덱스 -1
+// 중간 인덱스의 요소보다 크면 left를 중간 인덱스 +1
+
+// 다시 mid를 찾고
+// 중간 인덱스의 요소랑 맞으면 반환.
+
+// 정렬이 필수인 이유는 차례대로 비교하면서 right나 left를 바꿔야하니까!
