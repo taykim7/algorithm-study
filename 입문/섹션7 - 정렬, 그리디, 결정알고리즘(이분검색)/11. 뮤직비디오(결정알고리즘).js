@@ -125,3 +125,47 @@ function solution(arr, target) {
 }
 let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 console.log(solution(arr, 3));
+
+// =================================
+
+// 이분검색을 통해 m개의 디스크당 최소용량을 구하는 알고리즘.
+
+// 음악을 담았을 경우 정해진 용량에 따른 디스크 갯수를 반환하는 판별함수.
+function countDisc(musics, capacity) {
+  let disc = 1;
+  let sum = 0;
+  for (const music of musics) {
+    if (sum + music > capacity) {
+      disc++; // 디스크 한 장 추가
+      sum = music; // 새로운 디스크에 현재 음악 용량 추가
+    } else {
+      sum += music;
+    }
+  }
+  return disc;
+}
+
+function solution(m, musics) {
+  let answer = 0;
+  let left = 0;
+  let right = musics.reduce((a, b) => a + b, 0);
+
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+    let count = countDisc(musics, mid);
+    // 결정 알고리즘
+    if (count <= m) {
+      answer = mid;
+      right = mid - 1;
+    } else {
+      left = mid + 1;
+    }
+  }
+
+  return answer;
+}
+let arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+console.log(solution(3, arr2));
+
+// ↑ 이진탐색, 판별함수 사용, 결정 알고리즘
+// 결정 알고리즘은 입력에 대해 'Yes/No' 형태의 판단을 내리는 알고리즘이다.
