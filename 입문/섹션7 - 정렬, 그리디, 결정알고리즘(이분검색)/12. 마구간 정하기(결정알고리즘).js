@@ -123,3 +123,56 @@ console.log(solution(arr, 3));
 // 그냥 문제 자체가 어려웠다.
 // https://velog.io/@rladpwl0512/7-12-%EB%A7%88%EA%B5%AC%EA%B0%84-%EC%A0%95%ED%95%98%EA%B8%B0%EA%B2%B0%EC%A0%95%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98
 // 이거보고 겨우 이해했다 ㅠ
+
+// ==================================
+
+// 마구간의 좌표에 count 수만큼 말을 배치할 경우 가장 가까운 두 마리의 최대 거리를 구하는 알고리즘.
+
+// 좌표 기준으로 특정 간격(step)으로 배치했을 경우 몇 마리인지 반환하는 판별 함수.
+function getCount(arr, step) {
+  let count = 1;
+  let endPoint = arr[0];
+
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i] - endPoint >= step) {
+      count++;
+      endPoint = arr[i];
+    }
+  }
+  return count;
+}
+
+function solution(xy, target) {
+  let answer = 0;
+  
+  // 정렬된 좌표
+  let sortedXy = [...xy].sort((a, b) => { return a - b });
+
+  // 거리 구하기 (탐색 후보)
+  let left = 1;
+  let right = sortedXy[sortedXy.length - 1] - sortedXy[0];
+
+  while (left <= right) {
+    // 탐색 범위 분할
+    let mid = Math.floor((left + right) / 2);
+    
+    // mid 만큼 말들 배정해보기
+    let count = getCount(sortedXy, mid);
+    if (count >= target) {
+      answer = mid;
+      // 최소 거리 키워보기
+      left = mid + 1;
+    } else {
+      // 최대 거리 줄여보기
+      right = mid - 1;
+    }
+  }
+
+  return answer;
+};
+
+let arr3 = [1, 2, 8, 4, 9];
+
+console.log(solution(arr3, 3));
+
+// '가장 가까운 두 말의 최대 거리' 라는 말이 왜이렇게 어렵냐;;
