@@ -98,3 +98,19 @@ solution(3);
 // 재귀 after 4 번째 : 1
 // 재귀 after 5 번째 : 2
 // 재귀 after 6 번째 : 3
+
+// ===================================
+
+function solution(num) {
+  function DFS(N) {
+    if (N === 0) {
+      // 재귀 종료
+      return;
+    } else {
+      DFS(N-1);
+      console.log(N)
+    }
+  }
+  DFS(num);
+}
+solution(3); // 1 2 3
