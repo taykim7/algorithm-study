@@ -40,13 +40,16 @@ console.log(solution(1));
 */
 
 // (1) 살짝 베껴서 풀었따
-function solution(n) {  
+function solution(n) {
+  let result = '' 
   function DFS(k) {
     // 종료
     if (7 < k) return;
 
-    console.log('전위순회 ' + k);
+    result += (k + ' ');
+
     // *** 왼쪽 자식
+    console.log('전위순회 ' + k);
     DFS(k * 2);
     
     // *** 오른쪽 자식
@@ -56,7 +59,7 @@ function solution(n) {
   DFS(n);
   return result;
 }
-solution(1)
+console.log(solution(1));
 
 
 // 1 호출 및 대기
@@ -85,3 +88,39 @@ solution(1)
 // 솔직히 순회라는 느낌이 잘 안든다 ...
 // 전위 순회는 왼쪽 출력에 집중
 // 후위 순회는 왼쪽 오른쪽 다 출력해야함
+
+// ===============================
+
+// 방문 위치에 따라 [전위순회, 중위순회, 후위순회] 알고리즘
+
+//     1
+//   2   3
+// 4  5 6  7
+
+function solution(num) {
+  let result = '';
+
+  function DFS(n) {
+    if (n > 7) return;
+    else {
+
+      // 전위순회 => 1 2 4 5 3 6 7
+      // result += (n + ' '); 
+  
+      DFS(n * 2); // left
+
+      // 중위순회 => 4 2 5 1 6 3 7
+      result += (n + ' '); 
+
+      DFS(n * 2 + 1); // right
+
+      // 후위순회 => 4 5 2 6 7 3 1
+      // result += (n + ' '); 
+    }
+  }
+
+  DFS(num);
+  return result;
+}
+console.log(solution(1));
+
