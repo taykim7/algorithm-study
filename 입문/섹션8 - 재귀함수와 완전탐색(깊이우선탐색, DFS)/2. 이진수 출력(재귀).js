@@ -48,3 +48,22 @@ function solution(n) {
   return result;
 }
 console.log(solution(11));
+
+// ========================================
+
+// 재귀함수 활용 10진수 → 2진수 변환 알고리즘
+
+function solution(num) {
+  let result = '';
+  function DFS(n) {
+    if (n === 0) return;
+    else {
+      DFS(Math.floor(n / 2));
+      result += String(n % 2);
+    }
+  }
+
+  DFS(num);
+  return result;
+}
+console.log(solution(11)); // 1011
