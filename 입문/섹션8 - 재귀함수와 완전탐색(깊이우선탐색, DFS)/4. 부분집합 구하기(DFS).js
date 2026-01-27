@@ -105,3 +105,107 @@ solution(3)
 // 2를 체크하고, 3을 체크하고 [2,3] 출력, 3 체크 해제, 2 체크 해제
 // 3을 체크하고 [3] 출력, 3 체크해제
 // 끝
+
+// ===================
+
+// DFS를 활용하여 부분 집합 구하는 알고리즘
+
+function solution(num) {
+  
+  let numArr = Array.from({length: num + 1}, () => 0 ); // [0, 0, 0, 0] - 0번째 인덱스는 활용하지 않음.
+
+  function DFS(n) {
+    // num보다 큰 수를 받으면 출력
+    if (n === num + 1) {
+      let result = '';
+      // 1부터 입력숫자까지 체크된 것들만 출력
+      for (let i = 1; i <= num; i++) {
+        if (numArr[i] === 1) result += i + ' ';
+      }
+      // 출력
+      console.log(result);
+    } else {
+      // 포함
+      numArr[n] = 1;
+      DFS(n + 1);
+
+      // 미포함
+      numArr[n] = 0;
+      DFS(n + 1);
+    }
+  };
+
+  DFS(1);
+};
+
+solution(3);
+
+// --------------------------
+
+// DFS(1)
+//   1포함⭕
+//     DFS(2)
+//       2포함⭕
+//         DFS(3)
+//           3포함⭕
+//             DFS(4)
+//               출력 => [1, 2, 3]
+//           3미포함❌
+//             DFS(4)
+//               출력 => [1, 2]
+//       2미포함❌
+//         DFS(3)
+//           3포함⭕
+//             DFS(4)
+//               출력 => [1, 3]
+//           3미포함❌
+//             DFS(4)
+//               출력 => [1]
+//   1미포함❌
+//     DFS(2)
+//       2포함⭕
+//         DFS(3)
+//           3포함⭕
+//             DFS(4)
+//               출력 => [2, 3]
+//           3미포함❌
+//             DFS(4)
+//               출력 => [2]
+//       2미포함❌
+//         DFS(3)
+//           3포함⭕
+//             DFS(4)
+//               출력 => [3]
+//           3미포함❌
+//             DFS(4)
+//               출력 => X
+
+// --------------------------
+
+function solution(num) {
+  // let checkArr = Array.from({length: num + 1}, () => false);
+  let checkArr = Array(num + 1).fill(false);
+
+  function DFS(n) {
+    if (n === num + 1) {
+      let result = [];
+
+      for (let i = 1; i <= num; i++) {
+        if (checkArr[i]) result.push(i);
+      }
+
+      console.log(result);
+
+    } else {
+      checkArr[n] = true;
+      DFS(n + 1);
+      
+      checkArr[n] = false;
+      DFS(n + 1);
+    }
+  }
+
+  // 1부터 시작!
+  DFS(1);
+}
+solution(3);
