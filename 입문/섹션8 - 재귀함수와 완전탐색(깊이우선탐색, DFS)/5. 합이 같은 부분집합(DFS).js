@@ -92,3 +92,76 @@ function solution(arr) {
 
 }
 solution([1, 3, 5, 6, 7, 10]);
+
+// ==============================
+
+// DFS를 활용하여 집합을 두 개의 부분집합으로 나누었을 때 합이 같을 경우가 존재하는지 찾는 알고리즘
+
+function solution(arr) {
+  
+  let total = arr.reduce((a, b) => a + b, 0);
+  let arrLenght = arr.length;
+  let flag = false;
+
+  // 총합이 홀수면 애초에 불가능함... 대박
+  if (total % 2 !== 0) return 'NO';
+
+  function DFS(seq, sum) {
+
+    if (flag) return;
+
+    // 부분집합의 총합이 더 클 경우 가지치기
+    if (sum > total / 2) return;
+
+    if (seq === arrLenght) {
+      if (total - sum === sum) {
+        flag = true;
+      }
+    } else{
+      DFS(seq + 1, sum + arr[seq]);
+      DFS(seq + 1, sum);
+    }
+
+  };
+
+  
+  DFS(0, 0);
+  return flag ? 'YES' : 'NO';
+}
+
+let arr=[1, 3, 5, 6, 7, 10];
+console.log(solution(arr));
+
+// 총합을 미리 구해두고 배열 하나씩 순회
+// DFS는 모든 경우의 수를 고려하기 때문에 모든 부분집합의 경우의 수를 탐색
+// 부분집합의 합과 (총합 - 부분집합의 합)이 같다면 flag를 통해 조기종료
+
+// ------------------------------------------
+
+function solution(arr) {
+  const total = arr.reduce((a, b) => (a + b) , 0);
+  const n = arr.length;
+  let flag = false;
+
+  if (total % 2 !== 0) return 'NO';
+
+  function DFS(index, nowSum) {
+    if (flag) return;
+    if (nowSum > total / 2) return;
+    if (index === n) {
+      if (nowSum === total - nowSum) {
+        flag = true;
+      }
+    } else {
+      DFS(index + 1, nowSum + arr[index]);
+      DFS(index + 1, nowSum);
+    }
+
+  }
+
+  DFS(0, 0);
+  return flag ? 'YES' : 'NO';
+};
+
+let arr2 = [1, 3, 5, 6, 7, 10];
+console.log(solution(arr2));
