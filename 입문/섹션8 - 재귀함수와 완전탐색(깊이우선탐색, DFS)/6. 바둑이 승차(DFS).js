@@ -78,3 +78,39 @@ function solution(limit, arr) {
 
 let dogs = [81, 58, 42, 33, 61];
 solution(259, dogs);
+
+// ============================
+
+// limit 를 넘지 않는 부분집합의 최대합을 구하는 알고리즘
+
+function solution(limit, arr) {
+  const n = arr.length;
+  let maxSum = 0;
+
+  function DFS(index, sum) {
+
+    if (index === n) {
+      // 부분집합의 합 비교
+      if (sum <= limit) {
+        if (sum > maxSum) {
+          maxSum = sum;
+        }
+      }
+      // 종료
+      return;
+    }
+
+    // 이미 합이 초과할경우 가지치기
+    if (sum > limit) return;
+
+    // 포함 할경우, 안할경우
+    DFS(index + 1, sum + arr[index]);
+    DFS(index + 1, sum);
+  }
+
+  DFS(0, 0);
+  return maxSum;
+};
+
+let arr=[81, 58, 42, 33, 61];
+console.log(solution(259, arr));
