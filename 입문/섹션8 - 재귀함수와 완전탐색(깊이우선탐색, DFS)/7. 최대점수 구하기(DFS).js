@@ -79,3 +79,40 @@ function solution(limit, arr) {
 // 나는 배열로 풀었따
 let scoreTime = [[10, 5], [25, 12], [15, 8], [6, 3], [7, 4]];
 solution(20, scoreTime);
+
+// =============================
+
+// score은 점수, time은 푸는 시간, limit는 전체 제한 시간인데 최대 점수를 구하는 알고리즘
+
+function solution(limit, score, time) {
+  
+  // 최대점수
+  let scoreMax = 0;
+  const n = score.length;
+
+  function DFS(index, scoreSum, timeSum) {
+    // 제한시간 초과시
+    if (timeSum > limit) return;
+
+    if (index === n) {
+       if (scoreSum > scoreMax) {
+        scoreMax = scoreSum;
+      };
+      return;
+    };
+
+    // 푼다, 안푼다
+    DFS(index + 1, scoreSum + score[index], timeSum + time[index]);
+    DFS(index + 1, scoreSum, timeSum);
+  }
+
+  DFS(0, 0, 0);
+
+  return scoreMax;
+}
+
+// 점수, 시간
+let ps = [10, 25, 15, 6, 7];
+let pt = [5, 12, 8, 3, 4]
+
+console.log(solution(20, ps, pt));
