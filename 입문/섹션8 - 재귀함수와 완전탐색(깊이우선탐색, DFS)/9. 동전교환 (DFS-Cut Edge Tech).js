@@ -82,3 +82,39 @@ function solution(arr, change) {
 }
 let coinArr = [1, 2, 5];
 solution(coinArr, 15);
+
+// ==========================
+
+// DFS 기반 동전교환 알고리즘
+
+function solution(M, arr) {
+
+  let result = Number.MAX_SAFE_INTEGER;
+  const N = arr.length;
+
+  // 큰 동전부터
+  arr.sort((a, b) => b - a);
+
+  function DFS(L, sum) {
+    // 총합이 목표 금액보다 클 경우
+    if (sum > M) return;
+    // 최소개수보다 클 경우
+    if (L >= result) return;
+    // 총합이 목표 금액에 도달
+    if (sum === M) {
+      // 최소개수보다 작을 경우
+      result = Math.min(result, L);
+      return;
+    };
+
+    for (let i = 0; i < N; i++) {
+      DFS(L + 1, sum + arr[i]);
+    }
+  }
+
+  DFS(0, 0);
+
+  return result;
+}
+let arr=[1, 2, 5];
+console.log(solution(15, arr));
