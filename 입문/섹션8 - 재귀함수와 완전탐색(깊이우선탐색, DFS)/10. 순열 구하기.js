@@ -117,3 +117,43 @@ function solution(arr, M) {
 }
 let numArr = [3, 6, 9];
 solution(numArr, 2);
+
+// ========================================================
+
+// 배열이 주어지면 이 중 M 개의 순열을 구하는 알고리즘
+
+function solution(M, arr) {
+  let result = [];
+  
+  // 현재 삽입된 요소 체크용 배열
+  let checkArr = Array.from({ length: arr.length }, () => 0);
+  
+  // 현재 삽입된 요소 저장용 배열
+  let tmpArr = [];
+
+  function DFS(index) {
+
+    // M개가 충족되면 깊은 복사한다.
+    if (index === M) {
+      result.push(tmpArr.slice());
+    }
+
+    // 배열 전체 순회
+    for (let i = 0; i < arr.length; i++) {
+
+      if (checkArr[i] === 0) {
+        checkArr[i] = 1;
+        tmpArr.push(arr[i]);
+        DFS(index + 1);
+        checkArr[i] = 0;
+        tmpArr.pop();
+      }
+    }
+  }
+
+  DFS(0);
+  return result;
+}
+
+let arr=[3, 6, 9];
+console.log(solution(2, arr));
